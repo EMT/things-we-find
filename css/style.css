@@ -1,0 +1,193 @@
+
+
+
+
+@import url("http://fast.fonts.com/t/1.css?apiType=css&projectid=25cc3d5a-393c-4202-9369-167f35d0e9a8");
+@font-face{
+font-family:"Prestige Elite W01 Bold";
+src:url("Fonts/1c2346f9-683b-4713-9b96-c38e48777504.eot?iefix") format("eot");}
+@font-face{
+font-family:"Prestige Elite W01 Bold";
+src:url("../fonts/1c2346f9-683b-4713-9b96-c38e48777504.eot?iefix");
+src:url("../fonts/9345a0f5-95de-43c0-bd16-4197b9214b2e.woff") format("woff"),url("../fonts/2939886e-0f3b-4d1c-9821-2dd037f26246.ttf") format("truetype"),url("../fonts/3f0170c3-6d1c-455e-b968-8aa2c7d17e76.svg#3f0170c3-6d1c-455e-b968-8aa2c7d17e76") format("svg");
+}
+
+
+
+
+body {
+	background-color: rgb(221,222,218);
+	margin: 0;
+	padding: 0;
+}
+header {
+	display: block;
+	margin: 0 auto;
+	padding: 0;
+}
+header .category-nav {
+	background-color: rgb(255,255,255);
+	display: block;
+	line-height: 0;
+	padding: 12px 3%;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	z-index: 9999;
+}
+
+
+.category-nav a {
+	background-image: url('../images/categories-sprite.png');
+	background-repeat: no-repeat;
+	display: inline-block;
+	height: 18px;
+	margin-left: -4px;
+	text-indent: -9999px;
+	width: 18px;
+}
+
+
+header h1 {
+	color: rgb(51,51,51);
+	font-family: "futura-pt";
+	font-size: 2.25em;
+	font-weight: 700;
+	line-height: 1em;
+	margin: 0;
+	padding: 3em 3% 0;
+}
+header h2 {
+	color: rgb(255,255,255);
+	font-family: "futura-pt";
+	font-size: 2.25em;
+	font-weight: 700;
+	line-height: 1em;
+	margin: 0;
+	overflow: hidden;
+	padding: 0 0 1.3em;
+	width: 200%;
+}
+header h2 span {
+	box-sizing: border-box;
+	display: block;
+	float: left;
+	margin: -0.1em 0 0 0;
+	padding: 0 1.5%;
+	width: 50%;
+}
+#main {
+	list-style: none;
+	opacity: 0;
+	padding: 0 3%;
+	margin: 0 0 0 -10px;
+	-webkit-transition: all 0.6s cubic-bezier(.3,.43,.14,1);
+}
+#main li {
+	float: left;
+	overflow: hidden;
+	width: 300px;
+}
+#main li a {
+	background-color: rgb(255,255,255);
+	display: block;
+	margin: 10px;
+}
+#main li a img {
+	display: block;
+	-webkit-transition: all 0.3s;
+}
+#main li a:hover img {
+/* 	opacity: 0.7; */
+}
+#main img {
+	max-width: 100%;
+}
+#main a .tags {
+	background-color: rgb(255,255,255);
+	color: rgb(51,51,51);
+	top: auto;
+	bottom: -100%;
+	left: 10px;
+	right: 10px;
+	padding: 1em;
+	position: absolute;
+/* 	pointer-events: none; */
+	text-decoration: none;
+/* 	-webkit-transition: all 0.3s; */
+}
+#main a:hover .tags {
+	bottom: auto;
+	top: 10px;
+}
+
+.tags {
+	font-family: 'Prestige Elite W01 Bold', Courier, serif;
+	font-size: 0.9375em;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.tags li {
+	background-image: url('../images/categories-sprite.png');
+	background-repeat: no-repeat;
+	padding: 0 0 0 18px;
+}
+.tag-Typography {
+	background-position: -18px 0;
+	color: rgb(81,115,137);
+}
+a.tag-Typography.active {
+	background-position: 0 0;
+}
+.tag-Illustration {
+	background-position: -18px -180px;
+	color: rgb(240,138,45);
+}
+a.tag-Illustration.active {
+	background-position: 0 -180px;
+}
+.tag-Spaces {
+	background-position: -18px -40px;
+	color: rgb(238,29,65);
+}
+a.tag-Spaces.active {
+	background-position: 0 -40px;
+}
+.tag-Print {
+	background-position: -18px -60px;
+	color: rgb(96,32,81);
+}
+a.tag-Print.active {
+	background-position: 0 -60px;
+}
+.tag-Objects {
+	background-position: -18px -80px;
+	color: rgb(52,160,224);
+}
+a.tag-Objects.active {
+	background-position: 0 -80px;
+}
+.tag-Colour {
+	background-position: -18px -100px;
+	color: rgb(205,225,24);
+}
+a.tag-Colour.active {
+	background-position: 0 -100px;
+}
+.tag-Environments {
+	background-position: -18px -120px;
+	color: rgb(245,160,179);
+}
+a.tag-Environments.active {
+	background-position: 0 -120px;
+}
+.tag-Photography {
+	background-position: -18px -140px;
+	color: rgb(169,51,114);
+}
+a.tag-Photography.active {
+	background-position: 0 -140px;
+}
+
