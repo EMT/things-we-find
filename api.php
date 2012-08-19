@@ -11,20 +11,19 @@ $per_page = 15;
 $tag = (isset($_GET['tag'])) ? $_GET['tag'] : false;
 
 //	Temp fix for broken GimmeBar API
-$tag = false;
-
+if ($tag) {
+	$per_page = 50;
+}
 
 echo gimmeBar($user, $collection, $page, $per_page, $tag);
 
 
 function gimmeBar($user, $collection, $page, $per_page, $tag) {
 	$url = 'https://gimmebar.com/api/v1/public/assets/' . $user . '/' . $collection . '.json';
+	$url .= '?limit=' . $per_page . '&skip=' . ($per_page * ($page - 1));
+	$url .= '&_extension[]=description';
 	if ($tag) {
-		$url .= '?tag=' . $tag;
-		$per_page = 50;
-	}
-	else {
-		$url .= '?_extension[]=description';
+		//$url .= '?tag=' . $tag;
 	}
 	$url .= '&limit=' . $per_page . '&skip=' . ($per_page * ($page - 1));
 //echo $url;
