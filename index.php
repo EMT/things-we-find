@@ -2,7 +2,7 @@
 	$tag = (isset($_GET['url'])) ? $_GET['url'] : false;
 	$tag_title = ($tag) ?: 'Everything';
 	$page_title = ($tag) ?: '';
-	$page_title .= ($tag) ? ' Ð ' : '';
+	$page_title .= ($tag) ? ' â€“ ' : '';
 	$page_title .= 'Things We Find';
 ?><!doctype html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
@@ -40,6 +40,12 @@
 			<a class="category-link tag-Photography" href="/Photography">Photography</a>
 			<a class="category-link tag-Miscellany" href="/Miscellany">Miscellany</a>
 		</nav>
+		<div id="social-media">
+			<a href="#" id="sm-trigger">Tweet/Like</a>
+			<div id="sm-popup">
+				
+			</div>
+		</div>
 		<h1>Things We Find</h1>
 		<h2 id="category-title"><span class="tag-<?php echo $tag_title; ?>"><?php echo $tag_title; ?></span></h2>
 	</header>
@@ -75,7 +81,7 @@
 	<script src="js/jquery.masonry.min.js"></script>
 	<script src="js/handlebars.js"></script>
 	<script type="text/javascript">
-		start_tag = '<?php echo (isset($_GET['url'])) ? $_GET['url'] : 'false'; ?>';
+		start_tag = <?php echo ($tag) ? ("'" . $tag . "'") : 'false'; ?>;
 	</script>
 	<script src="js/bootstrap.js"></script>
 	

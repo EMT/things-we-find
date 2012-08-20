@@ -104,6 +104,7 @@ function swapTag(is_back) {
 			url += tag + '';
 			title = tag + ' Ð ' + title;
 		}
+		document.title = title;
 		if (!is_back) {
 			window.history.pushState({tag: tag}, title, url);
 			push_state = true;
