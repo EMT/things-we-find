@@ -1,4 +1,10 @@
-<!doctype html>
+<?php
+	$tag = (isset($_GET['url'])) ? $_GET['url'] : false;
+	$tag_title = ($tag) ?: 'Everything';
+	$page_title = ($tag) ?: '';
+	$page_title .= ($tag) ? ' Ð ' : '';
+	$page_title .= 'Things We Find';
+?><!doctype html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
@@ -11,7 +17,7 @@
 	It's been our pleasure.
 	-->
 
-	<title>Things We Find</title>
+	<title><?php echo $page_title; ?></title>
 
 	<meta name="viewport" content="width=device-width">
 	<link rel="stylesheet" href="css/style.css">
@@ -19,22 +25,23 @@
 	<script type="text/javascript" src="//use.typekit.net/pja1bzr.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 </head>
-<body>
+<body class="tag-body-<?php echo $tag_title; ?>">
 	
 	
 	<header>
 		<nav id="category-nav" class="category-nav">
-			<a class="tag-Typography" href="">Typography</a>
-			<a class="tag-Illustration" href="">Illustration</a>
-			<a class="tag-Spaces" href="">Spaces</a>
-			<a class="tag-Print" href="">Print</a>
-			<a class="tag-Objects" href="">Objects</a>
-			<a class="tag-Colour" href="">Colour</a>
-			<a class="tag-Environments" href="">Environments</a>
-			<a class="tag-Photography" href="">Photography</a>
+			<a class="tag-Typography" href="/Typography">Typography</a>
+			<a class="tag-Illustration" href="/Illustration">Illustration</a>
+			<a class="tag-Spaces" href="/Spaces">Spaces</a>
+			<a class="tag-Print" href="/Print">Print</a>
+			<a class="tag-Objects" href="/Objects">Objects</a>
+			<a class="tag-Colour" href="/Colour">Colour</a>
+			<a class="tag-Environments" href="/Environments">Environments</a>
+			<a class="tag-Photography" href="/Photography">Photography</a>
+			<a class="tag-Miscellany" href="/Miscellany">Miscellany</a>
 		</nav>
 		<h1>Things We Find</h1>
-		<h2 id="category-title"><span>Everything</span></h2>
+		<h2 id="category-title"><span class="tag-<?php echo $tag_title; ?>"><?php echo $tag_title; ?></span></h2>
 	</header>
 	
 	
@@ -67,6 +74,9 @@
 	<script>window.jQuery || document.write('<script src="js/jquery.js"><\/script>')</script>
 	<script src="js/jquery.masonry.min.js"></script>
 	<script src="js/handlebars.js"></script>
+	<script type="text/javascript">
+		start_tag = '<?php echo (isset($_GET['url'])) ? $_GET['url'] : 'false'; ?>';
+	</script>
 	<script src="js/bootstrap.js"></script>
 	
 </body>

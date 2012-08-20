@@ -167,7 +167,7 @@ header h2 .category-wrapper span {
 	background-position: -18px 0;
 	color: rgb(0,173,187);
 }
-a.tag-Typography.active {
+.tag-body-Typography .category-nav a.tag-Typography {
 	background-position: 0 0;
 }
 a.tag-Typography .category-tooltip {
@@ -181,7 +181,7 @@ a.tag-Typography .category-tooltip:before {
 	background-position: -18px -180px;
 	color: rgb(240,138,45);
 }
-a.tag-Illustration.active {
+.tag-body-Illustration .category-nav a.tag-Illustration {
 	background-position: 0 -180px;
 }
 a.tag-Illustration .category-tooltip {
@@ -195,7 +195,7 @@ a.tag-Illustration .category-tooltip:before {
 	background-position: -18px -40px;
 	color: rgb(238,29,65);
 }
-a.tag-Spaces.active {
+.tag-body-Spaces .category-nav a.tag-Spaces {
 	background-position: 0 -40px;
 }
 a.tag-Spaces .category-tooltip {
@@ -209,7 +209,7 @@ a.tag-Spaces .category-tooltip:before {
 	background-position: -18px -60px;
 	color: rgb(96,32,81);
 }
-a.tag-Print.active {
+.tag-body-Print .category-nav a.tag-Print {
 	background-position: 0 -60px;
 }
 a.tag-Print .category-tooltip {
@@ -223,7 +223,7 @@ a.tag-Print .category-tooltip:before {
 	background-position: -18px -80px;
 	color: rgb(52,160,224);
 }
-a.tag-Objects.active {
+.tag-body-Objects .category-nav a.tag-Objects {
 	background-position: 0 -80px;
 }
 a.tag-Objects .category-tooltip {
@@ -237,7 +237,7 @@ a.tag-Objects .category-tooltip:before {
 	background-position: -18px -100px;
 	color: rgb(0,181,80);
 }
-a.tag-Colour.active {
+.tag-body-Colour .category-nav a.tag-Colour {
 	background-position: 0 -100px;
 }
 a.tag-Colour .category-tooltip {
@@ -251,7 +251,7 @@ a.tag-Colour .category-tooltip:before {
 	background-position: -18px -120px;
 	color: rgb(245,160,179);
 }
-a.tag-Environments.active {
+.tag-body-Environments .category-nav a.tag-Environments {
 	background-position: 0 -120px;
 }
 a.tag-Environments .category-tooltip {
@@ -265,7 +265,7 @@ a.tag-Environments .category-tooltip:before {
 	background-position: -18px -140px;
 	color: rgb(169,51,114);
 }
-a.tag-Photography.active {
+.tag-body-Photography .category-nav a.tag-Photography {
 	background-position: 0 -140px;
 }
 a.tag-Photography .category-tooltip {
@@ -273,6 +273,20 @@ a.tag-Photography .category-tooltip {
 }
 a.tag-Photography .category-tooltip:before {
 	border-color: rgb(169,51,114);
+}
+
+.tag-Miscellany {
+	background-position: -18px -220px;
+	color: rgb(0,98,65);
+}
+.tag-body-Miscellany .category-nav a.tag-Miscellany {
+	background-position: 0 -220px;
+}
+a.tag-Miscellany .category-tooltip {
+	background-color: rgb(0,98,65);
+}
+a.tag-Miscellany .category-tooltip:before {
+	border-color: rgb(0,98,65);
 }
 
 

@@ -3,7 +3,8 @@ var page = 1,
 	more_items = true,
 	loading = false,
 	last_loaded_page = 0,
-	tag = false;
+	tag = start_tag || false,
+	push_state = false;
 
 $(function(){
 	
@@ -17,30 +18,14 @@ $(function(){
 	$('#category-nav a').on('click', function(e) {
 		e.preventDefault();
 		$('.category-tooltip').remove();
-		$(this).siblings().removeClass('active');
-		var new_tag = $(this).text();
+		var new_tag = $(this).attr('href').substr(1);
 		if (new_tag === tag) {
 			tag = false;
-			$(this).removeClass('active');
 		}
 		else {
 			tag = new_tag;
-			$(this).addClass('active');
 		}
-		$('#main').fadeOut('fast', function() {
-			var title = tag || 'Everything';
-			$('#category-title .category-wrapper')
-				.append($('<span class="tag-' + title + '">' + title + '</span>'))
-				.animate({marginLeft: '-100%'}, function() {
-					$(this).css({marginLeft: 0}).children(':first').remove();
-				});
-			$(this).replaceWith('<ul id="main"></ul>');
-			page = 1;
-			more_items = true;
-			loading = false;
-			last_loaded_page = 0;
-			loadItems(tag);
-		});
+		swapTag();
 	});
 	
 	$('#category-nav a').on('mouseenter', function() {
@@ -48,6 +33,19 @@ $(function(){
 	});
 	$('#category-nav a').on('mouseleave', function() {
 		$('.category-tooltip').remove();
+	});
+	
+	
+	$(window).on('popstate', function(e){
+		if (e.originalEvent.state) {
+			tag = e.originalEvent.state.tag || start_tag;
+		}
+		else {
+			tag = start_tag;
+		}
+		if (push_state) {
+			swapTag(true);
+		}
 	});
 	
 	
@@ -81,8 +79,42 @@ $(function(){
 });
 
 
-function loadItems(tag) {
-	
+
+
+
+function swapTag(is_back) {
+console.log(tag);
+	$('body').attr('class', '');
+	$('body').addClass('tag-body-' + tag);
+	$('#main').fadeOut('fast', function() {
+		var title = tag || 'Everything';
+		$('#category-title .category-wrapper')
+			.append($('<span class="tag-' + title + '">' + title + '</span>'))
+			.animate({marginLeft: '-100%'}, function() {
+				$(this).css({marginLeft: 0}).children(':first').remove();
+			});
+		$(this).replaceWith('<ul id="main"></ul>');
+		page = 1;
+		more_items = true;
+		loading = false;
+		last_loaded_page = 0;
+		loadItems(tag);
+		var url = '/lab/things-we-find/';
+		var title = 'Things We Find';
+		if (tag) {
+			url += tag + '';
+			title = tag + ' Ð ' + title;
+		}
+		if (!is_back) {
+			window.history.pushState({tag: tag}, title, url);
+			push_state = true;
+		}
+	});
+}
+
+
+
+function loadItems(tag) {	
 	if (!loading && more_items && page > last_loaded_page) {
 		loading = true;
 		var url = 'api.php?q=becausestudio/things-we-have-found';
