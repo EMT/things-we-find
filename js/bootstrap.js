@@ -98,7 +98,8 @@ function swapTag(is_back) {
 		loading = false;
 		last_loaded_page = 0;
 		loadItems(tag);
-		var url = '/lab/things-we-find/';
+		//var url = '/lab/things-we-find/';
+		var url = '/';
 		var title = 'Things We Find';
 		if (tag) {
 			url += tag + '';
@@ -117,7 +118,7 @@ function swapTag(is_back) {
 function loadItems(tag) {	
 	if (!loading && more_items && page > last_loaded_page) {
 		loading = true;
-		var url = 'api.php?q=becausestudio/things-we-have-found';
+		var url = '/api.php?q=becausestudio/things-we-have-found';
 		if (page) {
 			url += '&p=' + page;
 		}
