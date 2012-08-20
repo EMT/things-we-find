@@ -78,27 +78,27 @@ header h2 .category-wrapper span {
 	margin: 0 0 2em -10px;
 	-webkit-transition: all 0.6s cubic-bezier(.3,.43,.14,1);
 }
-#main li {
+#main > li {
 	float: left;
 	overflow: hidden;
 	width: 300px;
 }
-#main li a {
+#main > li a {
 	background-color: rgb(255,255,255);
 	display: block;
 	margin: 10px;
 }
-#main li a img {
+#main > li a img {
 	display: block;
 	-webkit-transition: all 0.3s;
 }
-#main li a:hover img {
+#main > li a:hover img {
 /* 	opacity: 0.7; */
 }
 #main img {
 	max-width: 100%;
 }
-#main a .tags {
+#main li .tags {
 	background-color: rgb(255,255,255);
 	color: rgb(51,51,51);
 	top: auto;
@@ -111,7 +111,7 @@ header h2 .category-wrapper span {
 	text-decoration: none;
 /* 	-webkit-transition: all 0.3s; */
 }
-#main a:hover .tags {
+#main li:hover .tags {
 	bottom: auto;
 	top: 10px;
 }
@@ -123,10 +123,16 @@ header h2 .category-wrapper span {
 	margin: 0;
 	padding: 0;
 }
-.tags li {
+#main .tags li a {
 	background-image: url('../images/categories-sprite.png');
 	background-repeat: no-repeat;
-	padding: 0 0 0 18px;
+	line-height: 18px;
+	margin: 0;
+	padding: 0 0 0 21px;
+	text-decoration: none;
+}
+#main .tags li a:hover {
+	background-position-x: 0;
 }
 
 
@@ -164,10 +170,11 @@ header h2 .category-wrapper span {
 
 
 .tag-Typography {
-	background-position: -18px 0;
+	background-position: 0 -18px;
 	color: rgb(0,173,187);
 }
-.tag-body-Typography .category-nav a.tag-Typography {
+.tag-body-Typography .category-nav a.tag-Typography,
+a.tag-Typography:hover {
 	background-position: 0 0;
 }
 a.tag-Typography .category-tooltip {
@@ -178,11 +185,12 @@ a.tag-Typography .category-tooltip:before {
 }
 
 .tag-Illustration {
-	background-position: -18px -180px;
+	background-position: 0 -378px;
 	color: rgb(240,138,45);
 }
-.tag-body-Illustration .category-nav a.tag-Illustration {
-	background-position: 0 -180px;
+.tag-body-Illustration .category-nav a.tag-Illustration,
+a.tag-Illustration:hover {
+	background-position: 0 -360px;
 }
 a.tag-Illustration .category-tooltip {
 	background-color: rgb(240,138,45);
@@ -192,11 +200,12 @@ a.tag-Illustration .category-tooltip:before {
 }
 
 .tag-Spaces {
-	background-position: -18px -40px;
+	background-position: 0 -98px;
 	color: rgb(238,29,65);
 }
-.tag-body-Spaces .category-nav a.tag-Spaces {
-	background-position: 0 -40px;
+.tag-body-Spaces .category-nav a.tag-Spaces,
+a.tag-Spaces:hover {
+	background-position: 0 -80px;
 }
 a.tag-Spaces .category-tooltip {
 	background-color: rgb(238,29,65);
@@ -206,11 +215,12 @@ a.tag-Spaces .category-tooltip:before {
 }
 
 .tag-Print {
-	background-position: -18px -60px;
+	background-position: 0 -138px;
 	color: rgb(96,32,81);
 }
-.tag-body-Print .category-nav a.tag-Print {
-	background-position: 0 -60px;
+.tag-body-Print .category-nav a.tag-Print,
+a.tag-Print:hover {
+	background-position: 0 -120px;
 }
 a.tag-Print .category-tooltip {
 	background-color: rgb(96,32,81);
@@ -220,11 +230,12 @@ a.tag-Print .category-tooltip:before {
 }
 
 .tag-Objects {
-	background-position: -18px -80px;
+	background-position: 0 -178px;
 	color: rgb(52,160,224);
 }
-.tag-body-Objects .category-nav a.tag-Objects {
-	background-position: 0 -80px;
+.tag-body-Objects .category-nav a.tag-Objects,
+a.tag-Objects:hover {
+	background-position: 0 -160px;
 }
 a.tag-Objects .category-tooltip {
 	background-color: rgb(52,160,224);
@@ -234,11 +245,12 @@ a.tag-Objects .category-tooltip:before {
 }
 
 .tag-Colour {
-	background-position: -18px -100px;
+	background-position: 0 -218px;
 	color: rgb(0,181,80);
 }
-.tag-body-Colour .category-nav a.tag-Colour {
-	background-position: 0 -100px;
+.tag-body-Colour .category-nav a.tag-Colour,
+a.tag-Colour:hover {
+	background-position: 0 -200px;
 }
 a.tag-Colour .category-tooltip {
 	background-color: rgb(0,181,80);
@@ -248,11 +260,12 @@ a.tag-Colour .category-tooltip:before {
 }
 
 .tag-Environments {
-	background-position: -18px -120px;
+	background-position: 0 -258px;
 	color: rgb(245,160,179);
 }
-.tag-body-Environments .category-nav a.tag-Environments {
-	background-position: 0 -120px;
+.tag-body-Environments .category-nav a.tag-Environments,
+a.tag-Environments:hover {
+	background-position: 0 -240px;
 }
 a.tag-Environments .category-tooltip {
 	background-color: rgb(245,160,179);
@@ -262,11 +275,12 @@ a.tag-Environments .category-tooltip:before {
 }
 
 .tag-Photography {
-	background-position: -18px -140px;
+	background-position: 0 -298px;
 	color: rgb(169,51,114);
 }
-.tag-body-Photography .category-nav a.tag-Photography {
-	background-position: 0 -140px;
+.tag-body-Photography .category-nav a.tag-Photography,
+a.tag-Photography:hover {
+	background-position: 0 -280px;
 }
 a.tag-Photography .category-tooltip {
 	background-color: rgb(169,51,114);
@@ -276,11 +290,12 @@ a.tag-Photography .category-tooltip:before {
 }
 
 .tag-Miscellany {
-	background-position: -18px -220px;
+	background-position: 0 -458px;
 	color: rgb(0,98,65);
 }
-.tag-body-Miscellany .category-nav a.tag-Miscellany {
-	background-position: 0 -220px;
+.tag-body-Miscellany .category-nav a.tag-Miscellany,
+a.tag-Miscellany:hover {
+	background-position: 0 -440px;
 }
 a.tag-Miscellany .category-tooltip {
 	background-color: rgb(0,98,65);

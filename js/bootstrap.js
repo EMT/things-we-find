@@ -15,9 +15,9 @@ $(function(){
 	
 	$('#category-title > span').wrap('<span class="category-wrapper"></span>');
 	
-	$('#category-nav a').on('click', function(e) {
+	$('body').on('click', 'a.category-link', function(e) {
 		e.preventDefault();
-		$('.category-tooltip').remove();
+		//$('.category-tooltip').remove();
 		var new_tag = $(this).attr('href').substr(1);
 		if (new_tag === tag) {
 			tag = false;
@@ -83,7 +83,6 @@ $(function(){
 
 
 function swapTag(is_back) {
-console.log(tag);
 	$('body').attr('class', '');
 	$('body').addClass('tag-body-' + tag);
 	$('#main').fadeOut('fast', function() {

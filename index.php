@@ -30,15 +30,15 @@
 	
 	<header>
 		<nav id="category-nav" class="category-nav">
-			<a class="tag-Typography" href="/Typography">Typography</a>
-			<a class="tag-Illustration" href="/Illustration">Illustration</a>
-			<a class="tag-Spaces" href="/Spaces">Spaces</a>
-			<a class="tag-Print" href="/Print">Print</a>
-			<a class="tag-Objects" href="/Objects">Objects</a>
-			<a class="tag-Colour" href="/Colour">Colour</a>
-			<a class="tag-Environments" href="/Environments">Environments</a>
-			<a class="tag-Photography" href="/Photography">Photography</a>
-			<a class="tag-Miscellany" href="/Miscellany">Miscellany</a>
+			<a class="category-link tag-Typography" href="/Typography">Typography</a>
+			<a class="category-link tag-Illustration" href="/Illustration">Illustration</a>
+			<a class="category-link tag-Spaces" href="/Spaces">Spaces</a>
+			<a class="category-link tag-Print" href="/Print">Print</a>
+			<a class="category-link tag-Objects" href="/Objects">Objects</a>
+			<a class="category-link tag-Colour" href="/Colour">Colour</a>
+			<a class="category-link tag-Environments" href="/Environments">Environments</a>
+			<a class="category-link tag-Photography" href="/Photography">Photography</a>
+			<a class="category-link tag-Miscellany" href="/Miscellany">Miscellany</a>
 		</nav>
 		<h1>Things We Find</h1>
 		<h2 id="category-title"><span class="tag-<?php echo $tag_title; ?>"><?php echo $tag_title; ?></span></h2>
@@ -54,14 +54,14 @@
 		<li class="box">
 			<a href="{{source}}">
 				<img src="{{thumb}}" alt="" />
-				{{#if tags.length}}
-					<ul class="tags">
-						{{#each tags}}
-							<li class="tag-{{this}}">{{this}}</li>
-						{{/each}}
-					</ul>
-				{{/if}}
 			</a>
+			{{#if tags.length}}
+				<ul class="tags">
+					{{#each tags}}
+						<li><a class="category-link tag-{{this}}" href="/{{this}}">{{this}}</a></li>
+					{{/each}}
+				</ul>
+			{{/if}}
 		</li>
 	</script>
 	
