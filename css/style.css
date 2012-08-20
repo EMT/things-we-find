@@ -38,15 +38,6 @@ header .category-nav {
 }
 
 
-.category-nav a {
-	background-image: url('../images/categories-sprite.png');
-	background-repeat: no-repeat;
-	display: inline-block;
-	height: 18px;
-	margin-left: -4px;
-	text-indent: -9999px;
-	width: 18px;
-}
 
 
 header h1 {
@@ -56,25 +47,28 @@ header h1 {
 	font-weight: 700;
 	line-height: 1em;
 	margin: 0;
-	padding: 3em 3% 0;
+	padding: 2.8em 3% 0;
 }
 header h2 {
 	color: rgb(255,255,255);
 	font-family: "futura-pt";
 	font-size: 2.25em;
 	font-weight: 700;
-	line-height: 1em;
-	margin: 0;
+	line-height: 1.2em;
+	margin: -0.1em 3% 0;
 	overflow: hidden;
-	padding: 0 0 1.3em;
+	padding: 0 0 1.2em;
+}
+header h2 .category-wrapper {
+	display: block;
+	overflow: hidden;
 	width: 200%;
 }
-header h2 span {
+header h2 .category-wrapper span {
 	box-sizing: border-box;
 	display: block;
 	float: left;
-	margin: -0.1em 0 0 0;
-	padding: 0 1.5%;
+/* 	margin: -0.1em 0 0 0; */
 	width: 50%;
 }
 #main {
@@ -134,6 +128,41 @@ header h2 span {
 	background-repeat: no-repeat;
 	padding: 0 0 0 18px;
 }
+
+
+.category-nav a {
+	background-image: url('../images/categories-sprite.png');
+	background-repeat: no-repeat;
+	display: inline-block;
+	height: 18px;
+	margin-left: -4px;
+	position: relative;
+	text-indent: -9999px;
+	width: 18px;
+}
+.category-tooltip {
+	bottom: -40px;
+	color: rgb(255,255,255);
+	font-family: 'Prestige Elite W01 Bold', Courier, serif;
+	font-size: 0.875em;
+	left: 8px;
+	line-height: 1em;
+	padding: 0.5em;
+	position: absolute;
+	text-indent: 0;
+}
+.category-tooltip:before {
+	background-color: transparent;
+	border-left: 2px solid;
+	content: ' ';
+	height: 20px;
+	left: 0;
+	position: absolute;
+	top: -20px;
+}
+
+
+
 .tag-Typography {
 	background-position: -18px 0;
 	color: rgb(81,115,137);
@@ -141,6 +170,13 @@ header h2 span {
 a.tag-Typography.active {
 	background-position: 0 0;
 }
+a.tag-Typography .category-tooltip {
+	background-color: rgb(81,115,137);
+}
+a.tag-Typography .category-tooltip:before {
+	border-color: rgb(81,115,137);
+}
+
 .tag-Illustration {
 	background-position: -18px -180px;
 	color: rgb(240,138,45);
@@ -148,6 +184,13 @@ a.tag-Typography.active {
 a.tag-Illustration.active {
 	background-position: 0 -180px;
 }
+a.tag-Illustration .category-tooltip {
+	background-color: rgb(240,138,45);
+}
+a.tag-Illustration .category-tooltip:before {
+	border-color: rgb(240,138,45);
+}
+
 .tag-Spaces {
 	background-position: -18px -40px;
 	color: rgb(238,29,65);
@@ -155,6 +198,13 @@ a.tag-Illustration.active {
 a.tag-Spaces.active {
 	background-position: 0 -40px;
 }
+a.tag-Spaces .category-tooltip {
+	background-color: rgb(238,29,65);
+}
+a.tag-Spaces .category-tooltip:before {
+	border-color: rgb(238,29,65);
+}
+
 .tag-Print {
 	background-position: -18px -60px;
 	color: rgb(96,32,81);
@@ -162,6 +212,13 @@ a.tag-Spaces.active {
 a.tag-Print.active {
 	background-position: 0 -60px;
 }
+a.tag-Print .category-tooltip {
+	background-color: rgb(96,32,81);
+}
+a.tag-Print .category-tooltip:before {
+	border-color: rgb(96,32,81);
+}
+
 .tag-Objects {
 	background-position: -18px -80px;
 	color: rgb(52,160,224);
@@ -169,6 +226,13 @@ a.tag-Print.active {
 a.tag-Objects.active {
 	background-position: 0 -80px;
 }
+a.tag-Objects .category-tooltip {
+	background-color: rgb(52,160,224);
+}
+a.tag-Objects .category-tooltip:before {
+	border-color: rgb(52,160,224);
+}
+
 .tag-Colour {
 	background-position: -18px -100px;
 	color: rgb(205,225,24);
@@ -176,6 +240,13 @@ a.tag-Objects.active {
 a.tag-Colour.active {
 	background-position: 0 -100px;
 }
+a.tag-Colour .category-tooltip {
+	background-color: rgb(205,225,24);
+}
+a.tag-Colour .category-tooltip:before {
+	border-color: rgb(205,225,24);
+}
+
 .tag-Environments {
 	background-position: -18px -120px;
 	color: rgb(245,160,179);
@@ -183,6 +254,13 @@ a.tag-Colour.active {
 a.tag-Environments.active {
 	background-position: 0 -120px;
 }
+a.tag-Environments .category-tooltip {
+	background-color: rgb(245,160,179);
+}
+a.tag-Environments .category-tooltip:before {
+	border-color: rgb(245,160,179);
+}
+
 .tag-Photography {
 	background-position: -18px -140px;
 	color: rgb(169,51,114);
@@ -190,4 +268,11 @@ a.tag-Environments.active {
 a.tag-Photography.active {
 	background-position: 0 -140px;
 }
+a.tag-Photography .category-tooltip {
+	background-color: rgb(169,51,114);
+}
+a.tag-Photography .category-tooltip:before {
+	border-color: rgb(169,51,114);
+}
+
 

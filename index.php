@@ -47,11 +47,13 @@
 		<li class="box">
 			<a href="{{source}}">
 				<img src="{{thumb}}" alt="" />
-				<ul class="tags">
-					{{#each tags}}
-						<li class="tag-{{this}}">{{this}}</li>
-					{{/each}}
-				</ul>
+				{{#if tags.length}}
+					<ul class="tags">
+						{{#each tags}}
+							<li class="tag-{{this}}">{{this}}</li>
+						{{/each}}
+					</ul>
+				{{/if}}
 			</a>
 		</li>
 	</script>

@@ -11,14 +11,26 @@ $(function(){
 	
 	loadItems(tag);
 	
+	
+	$('#category-title > span').wrap('<span class="category-wrapper"></span>');
+	
 	$('#category-nav a').on('click', function(e) {
 		e.preventDefault();
-		tag = $(this).text();
+		$('.category-tooltip').remove();
 		$(this).siblings().removeClass('active');
-		$(this).addClass('active');
+		var new_tag = $(this).text();
+		if (new_tag === tag) {
+			tag = false;
+			$(this).removeClass('active');
+		}
+		else {
+			tag = new_tag;
+			$(this).addClass('active');
+		}
 		$('#main').fadeOut('fast', function() {
-			$('#category-title')
-				.append($('<span class="tag-' + tag + '">' + tag + '</span>'))
+			var title = tag || 'Everything';
+			$('#category-title .category-wrapper')
+				.append($('<span class="tag-' + title + '">' + title + '</span>'))
 				.animate({marginLeft: '-100%'}, function() {
 					$(this).css({marginLeft: 0}).children(':first').remove();
 				});
@@ -29,30 +41,41 @@ $(function(){
 			last_loaded_page = 0;
 			loadItems(tag);
 		});
-		
 	});
 	
-	var timer;
+	$('#category-nav a').on('mouseenter', function() {
+		$(this).append($('<span class="category-tooltip">' + $(this).text() + '</span>'));
+	});
+	$('#category-nav a').on('mouseleave', function() {
+		$('.category-tooltip').remove();
+	});
+	
+	
+	
+	
+	var scroll_timer;
 	$(window).on('scroll', function() {
-		if (!timer) {
-			var timer = setTimeout(function() {
-				var doc_h = $(document).height(),
-					win_h = $(window).height(),
-					scroll = $(window).scrollTop();
-				if (scroll + win_h > doc_h - 80) {
-					loadItems(tag);
-				}
-			}, 200);
+		if (scroll_timer) {
+			clearTimeout(scroll_timer);
 		}
+		scroll_timer = setTimeout(function() {
+			var doc_h = $(document).height(),
+				win_h = $(window).height(),
+				scroll = $(window).scrollTop();
+			if (scroll + win_h > doc_h - 80) {
+				loadItems(tag);
+			}
+		}, 200);
 	});
 	
-	var timer;
+	var resize_timer;
 	$(window).resize(function() {
-		if (!timer) {
-			var timer = setTimeout(function() {
-				$container.masonry('reload');
-			}, 200);
+		if (resize_timer) {
+			clearTimeout(resize_timer);
 		}
+		resize_timer = setTimeout(function() {
+			$('#main').masonry('reload');
+		}, 200);
 	});
 	
 });

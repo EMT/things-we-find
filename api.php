@@ -23,7 +23,7 @@ function gimmeBar($user, $collection, $page, $per_page, $tag) {
 	$url .= '?limit=' . $per_page . '&skip=' . ($per_page * ($page - 1));
 	$url .= '&_extension[]=description';
 	if ($tag) {
-		//$url .= '?tag=' . $tag;
+		$url .= '&tag=' . $tag;
 	}
 	$url .= '&limit=' . $per_page . '&skip=' . ($per_page * ($page - 1));
 //echo $url;
