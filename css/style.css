@@ -75,7 +75,7 @@ header h2 .category-wrapper span {
 	list-style: none;
 	opacity: 0;
 	padding: 0 3%;
-	margin: 0 0 0 -10px;
+	margin: 0 0 2em -10px;
 	-webkit-transition: all 0.6s cubic-bezier(.3,.43,.14,1);
 }
 #main li {
@@ -165,16 +165,16 @@ header h2 .category-wrapper span {
 
 .tag-Typography {
 	background-position: -18px 0;
-	color: rgb(81,115,137);
+	color: rgb(0,173,187);
 }
 a.tag-Typography.active {
 	background-position: 0 0;
 }
 a.tag-Typography .category-tooltip {
-	background-color: rgb(81,115,137);
+	background-color: rgb(0,173,187);
 }
 a.tag-Typography .category-tooltip:before {
-	border-color: rgb(81,115,137);
+	border-color: rgb(0,173,187);
 }
 
 .tag-Illustration {
@@ -235,16 +235,16 @@ a.tag-Objects .category-tooltip:before {
 
 .tag-Colour {
 	background-position: -18px -100px;
-	color: rgb(205,225,24);
+	color: rgb(0,181,80);
 }
 a.tag-Colour.active {
 	background-position: 0 -100px;
 }
 a.tag-Colour .category-tooltip {
-	background-color: rgb(205,225,24);
+	background-color: rgb(0,181,80);
 }
 a.tag-Colour .category-tooltip:before {
-	border-color: rgb(205,225,24);
+	border-color: rgb(0,181,80);
 }
 
 .tag-Environments {
