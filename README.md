@@ -18,7 +18,7 @@ To add tags in GimmeBar, put them in the description field as #hastags. You can 
 
     #Spaces #Objects #Colour
 
-Only certain categories will work (and currently any other will break things, so please be careful to spell tags properly!) – here’s a list of tags that work:
+Only certain categories will work (and currently any others will break things, so be careful to spell tags properly!) – here’s a list of tags that work:
 
 - Typography
 - Illustration
