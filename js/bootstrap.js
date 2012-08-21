@@ -7,15 +7,20 @@ var page = 1,
 	push_state = false,
 	url_base = (host === 'madebyfieldwork.co') ? '/lab/things-we-find/' : '/',
 	secret_tags = ['Cats'];
+	
+	
 
 $(function(){
 	
+	
 	$('#main').css({marginTop: 200});
+	
 	
 	loadItems(tag);
 	
 	
 	$('#category-title > span').wrap('<span class="category-wrapper"></span>');
+	
 	
 	$('body').on('click', 'a.category-link', function(e) {
 		e.preventDefault();
@@ -29,6 +34,7 @@ $(function(){
 		}
 		swapTag();
 	});
+	
 	
 	$('#category-nav a').on('mouseenter', function() {
 		$(this).append($('<span class="category-tooltip">' + $(this).text() + '</span>'));
@@ -51,8 +57,6 @@ $(function(){
 	});
 	
 	
-	
-	
 	var scroll_timer;
 	$(window).on('scroll', function() {
 		if (scroll_timer) {
@@ -67,6 +71,7 @@ $(function(){
 			}
 		}, 200);
 	});
+	
 	
 	var resize_timer;
 	$(window).resize(function() {
@@ -95,6 +100,7 @@ $(function(){
 		}
 	})
 	
+	
 });
 
 
@@ -107,51 +113,67 @@ function swapTag(is_back) {
 	$('body').addClass('tag-body-' + tag);
 	
 	$('#main').fadeOut('fast', function() {
+	
 		var title = tag || 'Everything';
+		
 		$('#category-title .category-wrapper')
 			.append($('<span class="tag-' + title + '">' + title + '</span>'))
 			.animate({marginLeft: '-100%'}, function() {
 				$(this).css({marginLeft: 0}).children(':first').remove();
 			});
+			
 		$(this).replaceWith('<ul id="main"></ul>');
+		
 		page = 1;
 		more_items = true;
 		loading = false;
 		last_loaded_page = 0;
+		
 		loadItems(tag);
+		
 		var url = url_base;
 		var title = 'Things We Find';
 		if (tag) {
 			url += tag + '';
 			title = tag + ' – ' + title;
 		}
+		
 		document.title = title;
+		
 		if (typeof _gaq !== 'undefined') {
 			_gaq.push(['_trackPageview', url]);
 		}
+		
 		if (!is_back) {
 			window.history.pushState({tag: tag}, title, url);
 			push_state = true;
 		}
+		
 	});
 	
 }
 
 
 
-function loadItems(tag) {	
+function loadItems(tag) {
+
 	if (!loading && more_items && page > last_loaded_page) {
+	
 		loading = true;
+		
 		var url = 'api.php?q=becausestudio/things-we-have-found';
 		if ($.inArray(tag, secret_tags) > -1) {
 			url = 'api.php?q=andygott/things-we-find-secretly'
 		}
+		
 		if (page) {
 			url += '&p=' + page;
 		}
+		
 		if (tag) {
 			url += '&tag=' + tag;
 		}
+		
 		$.ajax({
 			url: url, 
 			dataType: 'json',
@@ -159,7 +181,7 @@ function loadItems(tag) {
 				loading = false;
 			},
 			success: onItemsLoaded
-		});
+		});	
 		
 	}
 	
@@ -191,6 +213,7 @@ function onItemsLoaded(data) {
 		}
 		
 		$container.imagesLoaded(function(){
+		
 			if (!has_items) {
 				$container.masonry({
 					itemSelector : '.box',
@@ -202,14 +225,18 @@ function onItemsLoaded(data) {
 				$container.masonry('appended', $item_html, true);
 				setTimeout(function() {$item_html.css({opacity: 1}); }, 200);
 			}
+			
 			page ++;
 			setTimeout(function() {
 				if ($('body').height()-160 < $(window).height()) {
 					loadItems(tag);
 				}
 			}, 750);
+			
 		});
+		
 	}
+	
 }
 
 

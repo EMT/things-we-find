@@ -14,6 +14,11 @@ src:url("../fonts/9345a0f5-95de-43c0-bd16-4197b9214b2e.woff") format("woff"),url
 
 
 
+a {
+	color: rgb(127,127,115);
+}
+
+
 
 body {
 	background-color: rgb(221,222,218);
@@ -229,6 +234,14 @@ header h2 .category-wrapper span {
 }
 
 
+
+.category-link {
+	background-position: 0 -498px;
+	color: rgb(127,127,115);
+}
+a.category-link:hover {
+	background-position: 0 -480px;
+}
 
 .tag-Typography {
 	background-position: 0 -18px;
