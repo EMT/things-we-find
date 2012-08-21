@@ -1,7 +1,5 @@
 <?php
 
-ini_set(Ôdisplay_errorsÕ,1);
-error_reporting(E_ALL|E_STRICT);
 
 
 
@@ -19,17 +17,21 @@ echo gimmeBar($user, $collection, $page, $per_page, $tag);
 
 
 function gimmeBar($user, $collection, $page, $per_page, $tag) {
+
 	$url = 'https://gimmebar.com/api/v1/public/assets/' . $user . '/' . $collection . '.json';
 	$url .= '?limit=' . $per_page . '&skip=' . ($per_page * ($page - 1));
 	$url .= '&_extension[]=description';
+	
 	if ($tag) {
 		$url .= '&tag=' . $tag;
 	}
+	
 	$url .= '&limit=' . $per_page . '&skip=' . ($per_page * ($page - 1));
-//echo $url;
+
 	require_once('phpcache.php');
 	$cache = new reallysimple\PhpCache('cache');
 	$data = $cache->fetch($url);
+	
 	if (!$data) {
 		$json = @file_get_contents($url);
 		$data = json_decode($json);
@@ -39,6 +41,7 @@ function gimmeBar($user, $collection, $page, $per_page, $tag) {
 	else {
 		$data->twf_cached = true;
 	}
+	
 	return json_encode($data);
 }
 
