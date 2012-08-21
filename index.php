@@ -1,16 +1,19 @@
-<?php
-	$tag = (isset($_GET['url'])) ? $_GET['url'] : false;
-	$tag_title = ($tag) ?: 'Everything';
-	$page_title = ($tag) ?: '';
-	$page_title .= ($tag) ? ' – ' : '';
-	$page_title .= 'Things We Find';
-?><!doctype html>
+<!doctype html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
 	<meta charset="utf-8">
+	
+	<?php
+	$tag = (isset($_GET['url'])) ? $_GET['url'] : false;
+	$tag_title = ($tag) ?: 'Everything';
+	$page_title = ($tag) ?: '';
+	$page_title .= ($tag) ? ' – ' : '';
+	$page_title .= 'Things We Find';
+	$host = $_SERVER['HTTP_HOST'];
+?>
 
 	<!--
 	Welcome to the source.
@@ -56,7 +59,7 @@
   js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
-					<div class="fb-like" data-href="<div class="fb-like" data-href="http://thingswefind.com" data-send="true" data-width="450" data-show-faces="true"></div>" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+					<div class="fb-like" data-href="http://thingswefind.com" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
 				</li>
 			</ul>
 		</div>
@@ -96,8 +99,23 @@
 	<script src="js/handlebars.js"></script>
 	<script type="text/javascript">
 		start_tag = <?php echo ($tag) ? ("'" . $tag . "'") : 'false'; ?>;
+		host = '<?php echo $host; ?>';
 	</script>
 	<script src="js/bootstrap.js"></script>
+	
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-34217297-3']);
+	  _gaq.push(['_trackPageview']);
+	
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	
+	</script>
 	
 </body>
 </html>

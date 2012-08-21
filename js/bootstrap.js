@@ -4,7 +4,8 @@ var page = 1,
 	loading = false,
 	last_loaded_page = 0,
 	tag = start_tag || false,
-	push_state = false;
+	push_state = false,
+	url_base = (host === 'madebyfieldwork.co') ? '/lab/things-we-find/' : '/';
 
 $(function(){
 	
@@ -98,14 +99,14 @@ function swapTag(is_back) {
 		loading = false;
 		last_loaded_page = 0;
 		loadItems(tag);
-		//var url = '/lab/things-we-find/';
-		var url = '/';
+		var url = url_base;
 		var title = 'Things We Find';
 		if (tag) {
 			url += tag + '';
-			title = tag + ' Ð ' + title;
+			title = tag + ' â€“ ' + title;
 		}
 		document.title = title;
+		_gaq.push(['_trackPageview', url]);
 		if (!is_back) {
 			window.history.pushState({tag: tag}, title, url);
 			push_state = true;
@@ -118,7 +119,7 @@ function swapTag(is_back) {
 function loadItems(tag) {	
 	if (!loading && more_items && page > last_loaded_page) {
 		loading = true;
-		var url = '/api.php?q=becausestudio/things-we-have-found';
+		var url = 'api.php?q=becausestudio/things-we-have-found';
 		if (page) {
 			url += '&p=' + page;
 		}
@@ -182,6 +183,12 @@ function loadItems(tag) {
 						  $container.masonry('appended', $item_html, true);
 					  }
 					  page ++;
+					  setTimeout(function() {
+				console.log('Body: ' + $('body').height() + ', Win: ' + $(window).height());
+						  if ($('body').height()-160 < $(window).height()) {
+							  loadItems(tag);
+						  }
+					  }, 750);
 					});
 				}
 				

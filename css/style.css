@@ -121,6 +121,9 @@ header h2 .category-wrapper span {
 	padding: 0 3%;
 	margin: 0 0 2em -10px;
 	-webkit-transition: all 0.6s cubic-bezier(.3,.43,.14,1);
+	-moz-transition: all 0.6s cubic-bezier(.3,.43,.14,1);
+	-o-transition: all 0.6s cubic-bezier(.3,.43,.14,1);
+	transition: all 0.6s cubic-bezier(.3,.43,.14,1);
 }
 #main > li {
 	float: left;
@@ -135,6 +138,9 @@ header h2 .category-wrapper span {
 #main > li a img {
 	display: block;
 	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
 }
 #main > li a:hover img {
 /* 	opacity: 0.7; */
