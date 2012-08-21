@@ -13,7 +13,7 @@
 	$page_title .= ($tag) ? ' – ' : '';
 	$page_title .= 'Things We Find';
 	$host = $_SERVER['HTTP_HOST'];
-	$build = 3;
+	$build = 4;
 ?>
 
 	<!--

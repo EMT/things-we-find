@@ -158,74 +158,94 @@ function loadItems(tag) {
 			complete: function() {
 				loading = false;
 			},
-			success: function(data) {
-				more_items = data.more_records;
-				if (data.records) {
-					more_items = data.more_records;
-					last_loaded_page = page;
-					var item, item_html, template, context;
-					for (var i = 0, len = data.records.length; i < len; i ++) {
-						item = data.records[i];
-						switch (item.asset_type) {
-							case 'image':
-								template = $('#template-gimmebar-image').html();
-								context = {
-									thumb: item.content.resized_images.stash.url,
-									source: item.source,
-									tags: (item.tags || [tag] || false)
-								}
-								break;
-							default: 
-								template = false;
-								context = {};
-						}
-						if (template) {
-							if (!tag || (tag && $.inArray(tag, context.tags) > -1)) {
-								template = Handlebars.compile(template);
-								item_html += template(context);
-							}
-						}
-					}
-					
-					var $container = $('#main'),
-						has_items = ($container.children().length) ? true : false;
-					if (!has_items && page > 1) {
-						$container.replaceWith('<ul id="main"></ul>');
-						$container = $('#main');
-						
-					}
-					$item_html = $(item_html);
-					$container.append($item_html);
-					
-					if (has_items) {
-						$item_html.css({opacity: 0});
-					}
-					
-					$container.imagesLoaded( function(){
-					  if (!has_items) {
-						$container.masonry({
-					    	itemSelector : '.box',
-					    	isAnimated: true
-					    });
-					    $('#main').css({marginTop: 0, opacity: 1});
-					  }
-					  else {
-						  $container.masonry('appended', $item_html, true);
-						  setTimeout(function() {$item_html.css({opacity: 1}); }, 200);
-					  }
-					  page ++;
-					  setTimeout(function() {
-						  if ($('body').height()-160 < $(window).height()) {
-							  loadItems(tag);
-						  }
-					  }, 750);
-					});
-				}
-				
-				
-			}
+			success: onItemsLoaded
 		});
 		
 	}
 	
+}
+
+
+function onItemsLoaded(data) {
+
+	more_items = data.more_records;
+	
+	if (data.records) {
+	
+		last_loaded_page = page;
+		
+		item_html = generateItemsHtml(data.records);
+		
+		var $container = $('#main'),
+			has_items = ($container.children().length) ? true : false;
+		if (!has_items && page > 1) {
+			$container.replaceWith('<ul id="main"></ul>');
+			$container = $('#main');
+			
+		}
+		$item_html = $(item_html);
+		$container.append($item_html);
+		
+		if (has_items) {
+			$item_html.css({opacity: 0});
+		}
+		
+		$container.imagesLoaded(function(){
+			if (!has_items) {
+				$container.masonry({
+					itemSelector : '.box',
+					isAnimated: true
+				});
+				$('#main').css({marginTop: 0, opacity: 1});
+			}
+			else {
+				$container.masonry('appended', $item_html, true);
+				setTimeout(function() {$item_html.css({opacity: 1}); }, 200);
+			}
+			page ++;
+			setTimeout(function() {
+				if ($('body').height()-160 < $(window).height()) {
+					loadItems(tag);
+				}
+			}, 750);
+		});
+	}
+}
+
+
+function generateItemsHtml(items) {
+
+	var item, item_html, template, context;
+	
+	for (var i = 0, len = items.length; i < len; i ++) {
+	
+		item = items[i];
+		
+		switch (item.asset_type) {
+		
+			case 'image':
+				template = $('#template-gimmebar-image').html();
+				context = {
+					thumb: item.content.resized_images.stash.url,
+					source: item.source,
+					tags: (item.tags || [tag] || false)
+				}
+				break;
+				
+			default: 
+				template = false;
+				context = {};
+				
+		}
+		
+		if (template) {
+			if (!tag || (tag && $.inArray(tag, context.tags) > -1)) {
+				template = Handlebars.compile(template);
+				item_html += template(context);
+			}
+		}
+		
+	}
+	
+	return item_html;
 }
