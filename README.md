@@ -1,6 +1,6 @@
 # Things We Find
 
-Public code repository for http://thingswefind.com – A collaborative collection of lovely things powered by the genius that is (GimmeBar)[https://gimmebar.com/].
+Public code repository for http://thingswefind.com – A collaborative collection of lovely things powered by the genius that is [GimmeBar](https://gimmebar.com/).
 
 We designed and built this in a weekend, whilst doing all the usual weekend stuff, so it’s a tad rough-and-ready.
 
