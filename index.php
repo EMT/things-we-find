@@ -13,7 +13,7 @@
 	$page_title .= ($tag) ? ' – ' : '';
 	$page_title .= 'Things We Find';
 	$host = $_SERVER['HTTP_HOST'];
-	$build = 2;
+	$build = 3;
 ?>
 
 	<!--
@@ -64,7 +64,7 @@
 				</li>
 			</ul>
 		</div>
-		<h1>Things We Find</h1>
+		<h1><a class="category-link" href="/">Things We Find</a></h1>
 		<h2 id="category-title"><span class="tag-<?php echo $tag_title; ?>"><?php echo $tag_title; ?></span></h2>
 	</header>
 	

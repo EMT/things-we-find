@@ -84,14 +84,17 @@ header .category-nav {
 
 
 header h1 {
-	color: rgb(51,51,51);
-	color: rgb(127,127,115);
 	font-family: "futura-pt";
 	font-size: 2.25em;
 	font-weight: 700;
 	line-height: 1em;
 	margin: 0;
 	padding: 2.8em 3% 0;
+}
+header h1 a {
+	color: rgb(51,51,51);
+	color: rgb(127,127,115);
+	text-decoration: none;
 }
 header h2 {
 	color: rgb(255,255,255);
