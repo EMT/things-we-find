@@ -184,7 +184,6 @@ function loadItems(tag) {
 					  }
 					  page ++;
 					  setTimeout(function() {
-				console.log('Body: ' + $('body').height() + ', Win: ' + $(window).height());
 						  if ($('body').height()-160 < $(window).height()) {
 							  loadItems(tag);
 						  }

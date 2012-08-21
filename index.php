@@ -13,6 +13,7 @@
 	$page_title .= ($tag) ? ' – ' : '';
 	$page_title .= 'Things We Find';
 	$host = $_SERVER['HTTP_HOST'];
+	$build = 2;
 ?>
 
 	<!--
@@ -23,7 +24,7 @@
 	<title><?php echo $page_title; ?></title>
 
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/style.<?php echo $build; ?>.css">
 	<script src="js/modernizr.js"></script>
 	<script type="text/javascript" src="//use.typekit.net/pja1bzr.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
@@ -75,7 +76,7 @@
 	
 	<script id="template-gimmebar-image" type="text/x-handlebars-template">
 		<li class="box">
-			<a href="{{source}}">
+			<a href="{{source}}" target="_blank">
 				<img src="{{thumb}}" alt="" />
 			</a>
 			{{#if tags.length}}
@@ -101,8 +102,9 @@
 		start_tag = <?php echo ($tag) ? ("'" . $tag . "'") : 'false'; ?>;
 		host = '<?php echo $host; ?>';
 	</script>
-	<script src="js/bootstrap.js"></script>
+	<script src="js/bootstrap.<?php echo $build; ?>.js"></script>
 	
+	<?php if ($host !== 'madebyfieldwork.co') { ?>
 	<script type="text/javascript">
 
 	  var _gaq = _gaq || [];
@@ -116,6 +118,7 @@
 	  })();
 	
 	</script>
+	<?php } ?>
 	
 </body>
 </html>
