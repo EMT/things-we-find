@@ -5,7 +5,8 @@ var page = 1,
 	last_loaded_page = 0,
 	tag = start_tag || false,
 	push_state = false,
-	url_base = (host === 'madebyfieldwork.co') ? '/lab/things-we-find/' : '/';
+	url_base = (host === 'madebyfieldwork.co') ? '/lab/things-we-find/' : '/',
+	secret_tags = ['Cats'];
 
 $(function(){
 	
@@ -77,6 +78,23 @@ $(function(){
 		}, 200);
 	});
 	
+	
+	var typed = [], 
+		typed_timer = false;
+	$(window).on('keyup', function(e) {
+		if (typed_timer) {
+			clearTimeout(typed_timer);
+		}
+		typed_timer = setTimeout(function() {
+			typed = [];
+		}, 3000);
+		typed.push(e.which);
+		if (typed.join(',') === '67,65,84,83') {
+			tag = 'Cats';
+			swapTag();
+		}
+	})
+	
 });
 
 
@@ -84,8 +102,10 @@ $(function(){
 
 
 function swapTag(is_back) {
+
 	$('body').attr('class', '');
 	$('body').addClass('tag-body-' + tag);
+	
 	$('#main').fadeOut('fast', function() {
 		var title = tag || 'Everything';
 		$('#category-title .category-wrapper')
@@ -106,12 +126,15 @@ function swapTag(is_back) {
 			title = tag + ' – ' + title;
 		}
 		document.title = title;
-		_gaq.push(['_trackPageview', url]);
+		if (typeof _gaq !== 'undefined') {
+			_gaq.push(['_trackPageview', url]);
+		}
 		if (!is_back) {
 			window.history.pushState({tag: tag}, title, url);
 			push_state = true;
 		}
 	});
+	
 }
 
 
@@ -120,6 +143,9 @@ function loadItems(tag) {
 	if (!loading && more_items && page > last_loaded_page) {
 		loading = true;
 		var url = 'api.php?q=becausestudio/things-we-have-found';
+		if ($.inArray(tag, secret_tags) > -1) {
+			url = 'api.php?q=andygott/things-we-find-secretly'
+		}
 		if (page) {
 			url += '&p=' + page;
 		}
