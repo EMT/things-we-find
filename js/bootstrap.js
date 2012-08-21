@@ -197,6 +197,10 @@ function loadItems(tag) {
 					$item_html = $(item_html);
 					$container.append($item_html);
 					
+					if (has_items) {
+						$item_html.css({opacity: 0});
+					}
+					
 					$container.imagesLoaded( function(){
 					  if (!has_items) {
 						$container.masonry({
@@ -207,6 +211,7 @@ function loadItems(tag) {
 					  }
 					  else {
 						  $container.masonry('appended', $item_html, true);
+						  setTimeout(function() {$item_html.css({opacity: 1}); }, 200);
 					  }
 					  page ++;
 					  setTimeout(function() {
