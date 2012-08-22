@@ -115,6 +115,9 @@ function swapTag(is_back) {
 	$('#main').fadeOut('fast', function() {
 	
 		var title = tag || 'Everything';
+		if (title === 'Cats') {
+			title = 'Kiiiitttttiiiiieeeeessssss!!!!!!';
+		}
 		
 		$('#category-title .category-wrapper')
 			.append($('<span class="tag-' + title + '">' + title + '</span>'))
@@ -132,7 +135,7 @@ function swapTag(is_back) {
 		loadItems(tag);
 		
 		var url = url_base;
-		var title = 'Things We Find';
+		title = 'Things We Find';
 		if (tag) {
 			url += tag + '';
 			title = tag + ' – ' + title;
