@@ -27,7 +27,9 @@
 
 	<title><?php echo $page_title; ?></title>
 	
-	<link rel="canonical" href="http://<?php echo $base_url; ?>/<?php echo $tag; ?>" />
+	<?php if ($tag) { ?>
+		<link rel="canonical" href="http://<?php echo $base_url; ?>/<?php echo $tag; ?>" />
+	<?php } ?>
 
 	<meta name="viewport" content="width=device-width">
 	<link rel="stylesheet" href="css/style.<?php echo $build; ?>.css">
