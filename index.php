@@ -7,12 +7,16 @@
 	<meta charset="utf-8">
 	
 	<?php
-	$tag = (isset($_GET['url'])) ? $_GET['url'] : false;
+	$tag = (isset($_GET['url'])) ? ucfirst($_GET['url']) : false;
 	$tag_title = ($tag) ?: 'Everything';
 	$page_title = ($tag) ?: '';
 	$page_title .= ($tag) ? ' – ' : '';
 	$page_title .= 'Things We Find';
 	$host = $_SERVER['HTTP_HOST'];
+	$base_url = $host;
+	if ($host === 'madebyfieldwork.co') {
+		$base_url .= '/lab/things-we-find';
+	}
 	$build = 6;
 ?>
 
@@ -22,6 +26,8 @@
 	-->
 
 	<title><?php echo $page_title; ?></title>
+	
+	<link rel="canonical" href="http://<?php echo $base_url; ?>/<?php echo $tag; ?>" />
 
 	<meta name="viewport" content="width=device-width">
 	<link rel="stylesheet" href="css/style.<?php echo $build; ?>.css">
