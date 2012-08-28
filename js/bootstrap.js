@@ -262,6 +262,15 @@ function generateItemsHtml(items) {
 				}
 				break;
 				
+			case 'embed':
+				template = $('#template-gimmebar-embed').html();
+				context = {
+					thumb: item.content.thumbnail,
+					source: item.source,
+					tags: (item.tags || [tag] || false)
+				}
+				break;
+				
 			default: 
 				template = false;
 				context = {};

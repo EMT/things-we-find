@@ -30,6 +30,7 @@ Only certain categories will work (and currently any others will break things, s
 - Colour
 - Environments
 - Photography
+- Moving
 - Miscellany
 
 
@@ -38,4 +39,4 @@ Only certain categories will work (and currently any others will break things, s
 Some things that’ll be coming along as we build on this...
 
 - Individual pages for items in the collection
-- A secret category for cats (yes, [really](https://github.com/EMT/things-we-find/issues/10))
+

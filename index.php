@@ -17,7 +17,7 @@
 	if ($host === 'madebyfieldwork.co') {
 		$base_url .= '/lab/things-we-find';
 	}
-	$build = 6;
+	$build = 9;
 ?>
 
 	<!--
@@ -50,6 +50,7 @@
 			<a class="category-link tag-Colour" href="/Colour">Colour</a>
 			<a class="category-link tag-Environments" href="/Environments">Environments</a>
 			<a class="category-link tag-Photography" href="/Photography">Photography</a>
+			<a class="category-link tag-Moving" href="/Moving">Moving</a>
 			<a class="category-link tag-Miscellany" href="/Miscellany">Miscellany</a>
 		</nav>
 		<div id="social-media">
@@ -83,6 +84,21 @@
 	
 	
 	<script id="template-gimmebar-image" type="text/x-handlebars-template">
+		<li class="box">
+			<a href="{{source}}" target="_blank">
+				<img src="{{thumb}}" alt="" />
+			</a>
+			{{#if tags.length}}
+				<ul class="tags">
+					{{#each tags}}
+						<li><a class="category-link tag-{{this}}" href="/{{this}}">{{this}}</a></li>
+					{{/each}}
+				</ul>
+			{{/if}}
+		</li>
+	</script>
+	
+	<script id="template-gimmebar-embed" type="text/x-handlebars-template">
 		<li class="box">
 			<a href="{{source}}" target="_blank">
 				<img src="{{thumb}}" alt="" />

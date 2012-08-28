@@ -190,7 +190,7 @@ header h2 .category-wrapper span {
 	padding: 0;
 }
 #main .tags li a {
-	background-image: url('../images/categories-sprite.png');
+	background-image: url('../images/categories-sprite.8.png');
 	background-repeat: no-repeat;
 	line-height: 18px;
 	margin: 0;
@@ -203,7 +203,7 @@ header h2 .category-wrapper span {
 
 
 .category-nav a {
-	background-image: url('../images/categories-sprite.png');
+	background-image: url('../images/categories-sprite.8.png');
 	background-repeat: no-repeat;
 	display: inline-block;
 	height: 18px;
@@ -361,6 +361,21 @@ a.tag-Photography .category-tooltip {
 }
 a.tag-Photography .category-tooltip:before {
 	border-color: rgb(169,51,114);
+}
+
+.tag-Moving {
+	background-position: 0 -538px;
+	color: rgb(177,137,125);
+}
+.tag-body-Moving .category-nav a.tag-Moving,
+a.tag-Moving:hover {
+	background-position: 0 -520px;
+}
+a.tag-Moving .category-tooltip {
+	background-color: rgb(177,137,125);
+}
+a.tag-Moving .category-tooltip:before {
+	border-color: rgb(177,137,125);
 }
 
 .tag-Miscellany {
