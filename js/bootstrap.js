@@ -216,7 +216,11 @@ function onItemsLoaded(data) {
 		}
 		
 		$container.imagesLoaded(function(){
-		
+			
+			var container_width = $('#main').width(),
+				col_width = Math.floor(container_width / (Math.ceil(container_width / 300)));
+			$('.box').each(function() {$(this).css({width: col_width}); });
+			
 			if (!has_items) {
 				$container.masonry({
 					itemSelector : '.box',

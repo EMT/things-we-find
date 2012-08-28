@@ -17,7 +17,7 @@
 	if ($host === 'madebyfieldwork.co') {
 		$base_url .= '/lab/things-we-find';
 	}
-	$build = 9;
+	$build = 10;
 ?>
 
 	<!--
@@ -78,9 +78,11 @@
 	</header>
 	
 	
-	<ul id="main">
+	<div class="main-wrapper">
+		<ul id="main">
 		
-	</ul>
+		</ul>
+	</div>
 	
 	
 	<script id="template-gimmebar-image" type="text/x-handlebars-template">
