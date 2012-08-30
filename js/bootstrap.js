@@ -19,12 +19,30 @@ $(function(){
 	loadItems(tag);
 	
 	
+	$('.about-link').on('click', function(e) {
+		e.preventDefault();
+		$popup = $('#about');
+		if ($popup.css('display') !== 'block') {
+			var random_index = 1 + Math.floor(Math.random() * $('#category-nav a').length);
+		console.log(random_index);
+			if (random_index === 4 || random_index === 8 || random_index === 10) {
+				random_index --;
+			}
+			var $random_cat_link = $('#category-nav a:nth-child(' + random_index + ')');
+			$popup.attr('class', 'popup bg-' + $random_cat_link.attr('href').substr(1));
+			openPopup($popup, false);
+		}
+		else {
+			closePopup();
+		}
+	});
+	
+	
 	$('#category-title > span').wrap('<span class="category-wrapper"></span>');
 	
 	
 	$('body').on('click', 'a.category-link', function(e) {
 		e.preventDefault();
-		//$('.category-tooltip').remove();
 		var new_tag = $(this).attr('href').substr(1);
 		if (new_tag === tag) {
 			tag = false;
@@ -32,7 +50,12 @@ $(function(){
 		else {
 			tag = new_tag;
 		}
-		swapTag();
+		if ($('#popup-overlay').length) {
+			closePopup(swapTag);
+		}
+		else {
+			swapTag();
+		}
 	});
 	
 	
@@ -292,3 +315,48 @@ function generateItemsHtml(items) {
 	
 	return item_html;
 }
+
+
+
+function openPopup($popup, remove_on_close) {
+
+	if (typeof remove_on_close === 'undefined') {
+		remove_on_close = true;
+	}
+
+	var w = $popup.css({top: '-99999px', display: 'block'}).outerWidth(true),
+		h = $popup.outerHeight(true),
+		win_w = $(window).width(),
+		win_h = $(window).height();
+		
+	$popup.css({
+		display: 'none', 
+		top: (win_h - h) / 2, 
+		left: (win_w - w) / 2
+	}).data('removeOnClose', remove_on_close);
+	
+	if (!$('#popup-overlay').length) {
+		$('<div></div>').attr('id', 'popup-overlay')
+			.appendTo($('body'))
+			.on('click', function() {closePopup(remove_on_close); })
+			.fadeIn('fast');
+	}
+	
+	$popup.append($('<a class="close" href="#">Close</a>')).fadeIn('fast');
+	
+	$popup.find('.close').on('click', function(e) {e.preventDefault(); closePopup(); });
+}
+
+
+function closePopup(callback) {
+	$popup.fadeOut('fast', function() {
+		if ($(this).data('removeOnClose')) {
+			$(this).remove();
+		}
+		if (callback) {
+			callback();
+		}
+	});
+	$('#popup-overlay').fadeOut('fast', function() {$(this).remove(); });
+}
+

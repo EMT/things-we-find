@@ -41,6 +41,7 @@
 	
 	
 	<header>
+	
 		<nav id="category-nav" class="category-nav">
 			<a class="category-link tag-Typography" href="/Typography">Typography</a>
 			<a class="category-link tag-Illustration" href="/Illustration">Illustration</a>
@@ -53,6 +54,7 @@
 			<a class="category-link tag-Moving" href="/Moving">Moving</a>
 			<a class="category-link tag-Miscellany" href="/Miscellany">Miscellany</a>
 		</nav>
+		
 		<div id="social-media">
 			<a href="#" id="sm-trigger">Tweet/Like</a>
 			<ul id="sm-popup">
@@ -73,8 +75,17 @@
 				</li>
 			</ul>
 		</div>
+		
+		<a class="about-link" href="/about">?</a>
+		
+		<!--[if lte IE 8]>
+			<p class="ie-note">Hey, this site isn't broken, your browser is. It looks like you’re using Internet Explorer, which is old, slow, insecure and full of bugs. Please try <a href="https://www.google.com/intl/en/chrome/browser/" target="_blank">Chrome</a>, <a href="http://www.apple.com/safari/" target="_blank">Safari</a> or <a href="http://www.mozilla.org/en-US/firefox/new/" target="_blank">Firefox</a> instead.</p>
+		<![endif]-->
+		
+		
 		<h1><a class="category-link" href="/">Things We Find</a></h1>
 		<h2 id="category-title"><span class="tag-<?php echo $tag_title; ?>"><?php echo $tag_title; ?></span></h2>
+		
 	</header>
 	
 	
@@ -83,6 +94,25 @@
 		
 		</ul>
 	</div>
+	
+	
+	
+	
+	<section id="about" class="popup">
+		<h2>What’s all this then?</h2>
+		<p>Created by Andy Gott & Loz Ives, Things We Find is an online repository for the visual loveliness that we find every day. Content is uploaded as and when we find it, and loosely categorised in one way or another.</p>
+		<p>The collection is quickly expanding thanks to a growing network of contributors.</p>
+		<p>The code is hosted on <a href="https://github.com/EMT/things-we-find">Github</a>, and the whole thing is built on top of <a href="http://gimmebar.com">GimmeBar</a>.</p>
+		<h2>Digital Explorers</h2>
+		<ul>
+			<li><a href="https://twitter.com/BecauseStudio" target="_blank">Loz Ives</a></li>
+			<li><a href="https://twitter.com/waltlowry" target="_blank">Johnny Lowry</a></li>
+			<li><a href="https://twitter.com/smartemma" target="_blank">Emma Smart</a></li>
+			<li><a href="https://twitter.com/RSWorks" target="_blank">Andy Gott</a></li>
+		</ul>
+<!-- 		<p class="made-by-fieldwork">Designed &amp; Built by <a href="http://madebyfieldwork.co">Fieldwork</a></p> -->
+	</section>
+	
 	
 	
 	<script id="template-gimmebar-image" type="text/x-handlebars-template">
