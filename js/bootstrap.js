@@ -24,7 +24,6 @@ $(function(){
 		$popup = $('#about');
 		if ($popup.css('display') !== 'block') {
 			var random_index = 1 + Math.floor(Math.random() * $('#category-nav a').length);
-		console.log(random_index);
 			if (random_index === 4 || random_index === 8 || random_index === 10) {
 				random_index --;
 			}
