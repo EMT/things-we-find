@@ -2,12 +2,40 @@
 var page = 1,
 	more_items = true,
 	loading = false,
+	item_loading = false,
 	last_loaded_page = 0,
 	tag = start_tag || false,
+	item_id = start_item_id,
+	items = {},
 	push_state = false,
 	url_base = (host === 'madebyfieldwork.co') ? '/lab/things-we-find/' : '/',
 	secret_tags = ['Cats'];
 	
+	
+if (start_item) {
+	items[start_item.id] = start_item;
+}
+	
+	
+var spinner_opts = {
+  lines: 9, // The number of lines to draw
+  length: 15, // The length of each line
+  width: 10, // The line thickness
+  radius: 35, // The radius of the inner circle
+  corners: 1, // Corner roundness (0..1)
+  rotate: 30, // The rotation offset
+  color: 'rgb(255,255,255)', // #rgb or #rrggbb
+  speed: 1.1, // Rounds per second
+  trail: 62, // Afterglow percentage
+  shadow: false, // Whether to render a shadow
+  hwaccel: false, // Whether to use hardware acceleration
+  className: 'spinner', // The CSS class to assign to the spinner
+  zIndex: 2e9, // The z-index (defaults to 2000000000)
+  top: 'auto', // Top position relative to parent in px
+  left: 'auto' // Left position relative to parent in px
+};
+	
+
 	
 
 $(function(){
@@ -18,9 +46,16 @@ $(function(){
 	
 	loadItems(tag);
 	
+	if (item_id) {
+		loadItem(item_id, true);
+	}
+	
 	
 	$('.about-link').on('click', function(e) {
 		e.preventDefault();
+		if (popup_open) {
+			closePopup(false);
+		}
 		$popup = $('#about');
 		if ($popup.css('display') !== 'block') {
 			var random_index = 1 + Math.floor(Math.random() * $('#category-nav a').length);
@@ -66,15 +101,38 @@ $(function(){
 	});
 	
 	
-	$(window).on('popstate', function(e){
-		if (e.originalEvent.state) {
-			tag = e.originalEvent.state.tag || start_tag;
+	$('body').on('click', 'a.item-link', function(e) {
+		e.preventDefault();
+		var url = $(this).attr('href');
+		if (popup_open) {
+			closePopup(false, function() {loadItemOnClick(url); });
 		}
 		else {
+			loadItemOnClick(url);
+		}
+	});
+	
+	
+	$(window).on('popstate', function(e){
+		var old_tag = tag;
+		var old_item_id = item_id;
+		if (e.originalEvent.state) {
+console.log(e.originalEvent.state);
+			tag = e.originalEvent.state.tag;
+			item_id = e.originalEvent.state.item_id;
+		}
+		else {
+console.log("no state: " + e.originalEvent.state);
 			tag = start_tag;
+			item_id = start_item_id;
 		}
 		if (push_state) {
-			swapTag(true);
+			if (tag !== old_tag) {
+				swapTag(true);
+			}
+			if (item_id !== old_item_id) {
+				loadItem(item_id, true);
+			}
 		}
 	});
 	
@@ -170,7 +228,7 @@ function swapTag(is_back) {
 		}
 		
 		if (!is_back) {
-			window.history.pushState({tag: tag}, title, url);
+			window.history.pushState({tag: tag, item_id: false}, title, url);
 			push_state = true;
 		}
 		
@@ -186,9 +244,9 @@ function loadItems(tag) {
 	
 		loading = true;
 		
-		var url = 'api.php?q=becausestudio/things-we-have-found';
+		var url = url_base + 'api.php?q=becausestudio/things-we-have-found';
 		if ($.inArray(tag, secret_tags) > -1) {
-			url = 'api.php?q=andygott/things-we-find-secretly'
+			url = url_base + 'api.php?q=andygott/things-we-find-secretly'
 		}
 		
 		if (page) {
@@ -282,7 +340,9 @@ function generateItemsHtml(items) {
 			case 'image':
 				template = $('#template-gimmebar-image').html();
 				context = {
-					thumb: item.content.resized_images.stash.url,
+					id: item.id,
+					thumb: (item.content.resized_images.stash) 
+						? item.content.resized_images.stash.url : item.content.resized_images.full,
 					source: item.source,
 					tags: (item.tags || [tag] || false)
 				}
@@ -291,6 +351,7 @@ function generateItemsHtml(items) {
 			case 'embed':
 				template = $('#template-gimmebar-embed').html();
 				context = {
+					id: item.id,
 					thumb: item.content.thumbnail,
 					source: item.source,
 					tags: (item.tags || [tag] || false)
@@ -303,9 +364,14 @@ function generateItemsHtml(items) {
 				
 		}
 		
-		if (template) {
+		if (template && context.thumb) {
 			if (!tag || (tag && $.inArray(tag, context.tags) > -1)) {
 				template = Handlebars.compile(template);
+				context.url = url_base;
+				if (tag) {
+					context.url += tag + '/';
+				}
+				context.url += 'item/' + context.id;
 				item_html += template(context);
 			}
 		}
@@ -317,6 +383,133 @@ function generateItemsHtml(items) {
 
 
 
+function loadItemOnClick(url) {
+	var url_parts = url.split('/');
+	item_id = url_parts.pop();
+	loadItem(item_id);
+}
+
+
+function loadItem(item_id, is_back) {
+	
+	if (!item_id) {
+		closePopup(function() {clearItem(is_back); });
+		return;
+	}
+
+	openPopupOverlay();
+	var spin_timer = setTimeout(function() {
+		spinner = new Spinner(spinner_opts).spin(document.getElementById('popup-overlay'));
+	}, 750);
+	
+	if (!item_loading) {
+	
+		if (items[item_id]) {
+			return onItemLoaded(items[item_id], is_back);
+		}
+	
+		item_loading = true;
+	
+		var url = url_base + 'api.php?asset=' + item_id;
+			
+		$.ajax({
+			url: url, 
+			dataType: 'json',
+			complete: function() {
+				item_loading = false;
+			},
+			success: function(data) {
+				onItemLoaded(data, is_back);
+			}
+		});	
+	}
+	
+}
+
+
+function onItemLoaded(data, is_back) {
+
+	if (data && data.id) {
+		items[data.id] = data;
+	}
+	
+	if (popup_open) {
+		closePopup(false, function() {
+			var template = Handlebars.compile($('#template-item-popup').html());
+			$popup = $(template(data));
+			$popup.appendTo($('body'));
+			$popup.imagesLoaded(function() {
+				openPopup($popup);
+			});
+		});
+	}
+	else {
+		var template = false;
+		if (data.asset_type === 'image') {
+			template = Handlebars.compile($('#template-item-popup-image').html());
+		}
+		else if (data.asset_type === 'embed') {
+			template = Handlebars.compile($('#template-item-popup-embed-iframe').html());
+console.log(data);
+		}
+		if (template) {
+			$popup = $(template(data));
+			$popup.appendTo($('body'));
+			$popup.imagesLoaded(function() {
+				openPopup($popup);
+			});
+		}
+	}
+	
+	var title = data.title + ' – Things We Find';
+	document.title = title;
+	if (!is_back) {
+		var url = url_base;
+		if (tag) {
+			url += tag + '/';
+		}
+		url += 'item/' + data.id;
+		window.history.pushState({tag: tag, item_id: item_id}, title, url);
+		push_state = true;
+		if (typeof _gaq !== 'undefined') {
+			_gaq.push(['_trackPageview', url]);
+		}
+	}
+	
+	return;
+}
+
+
+function clearItem(is_back) {
+
+	item_id = false;
+	
+	var title = '';
+	if (tag) {
+		title = tag + ' – ';
+	}
+	title += 'Things We Find';
+	document.title = title;
+	
+	if (!is_back) {
+		var url = url_base
+		if (tag) {
+			url += tag;
+		}
+		window.history.pushState({tag: tag, item_id: item_id}, title, url);
+		push_state = true;
+		if (typeof _gaq !== 'undefined') {
+			_gaq.push(['_trackPageview', url]);
+		}
+	}
+}
+
+
+
+
+var $popup = false,
+	popup_open = false;
+	
 function openPopup($popup, remove_on_close) {
 
 	if (typeof remove_on_close === 'undefined') {
@@ -326,36 +519,88 @@ function openPopup($popup, remove_on_close) {
 	var w = $popup.css({top: '-99999px', display: 'block'}).outerWidth(true),
 		h = $popup.outerHeight(true),
 		win_w = $(window).width(),
-		win_h = $(window).height();
-		
+		win_h = $(window).height(),
+		viewport_h = win_h - $('#category-nav').outerHeight();	
+			
+	if (viewport_h - 20 < h) {
+		var diff = h - (viewport_h - 20),
+			img_h = $('#main-img').height();
+		$('#main-img').css('height', img_h - diff);	
+	}
+	
+	if ($popup.hasClass('popup-embed')) {
+		var embed_h = $('#main-embed').outerHeight(),
+			embed_w = $('#main-embed').outerWidth(),
+			margins_h = h - embed_h,
+			margins_w = w - embed_w,
+			space_h = viewport_h - h,
+			space_w = win_w - w;
+		if (space_h > space_w * 0.5625) {
+			//	fit to width
+			$('#main-embed').css('width', Math.min((win_w * 0.9) - margins_w, 1000));
+		}
+		else {
+			//	fit to height
+			$('#main-embed').css('width', Math.min(((viewport_h * 0.9) - margins_h) * 1.5325, 1000));
+		}
+	}
+	
+	win_h += $('#category-nav').outerHeight();
+	
+	$popup.css({
+		display: 'none'
+	});
+	w = $popup.outerWidth(true);
+	h = $popup.outerHeight(true);
+				
 	$popup.css({
 		display: 'none', 
 		top: (win_h - h) / 2, 
 		left: (win_w - w) / 2
 	}).data('removeOnClose', remove_on_close);
 	
+	openPopupOverlay();
+	
+	$popup.append($('<a class="close" href="#">Close</a>')).fadeIn('fast');
+	
+	$popup.find('.close').on('click', function(e) {e.preventDefault(); closePopup(); });
+	
+	popup_open = true;	
+}
+
+
+function closePopup(close_overlay, callback) {
+	//	change URL
+	if (typeof close_overlay === 'function') {
+		callback = close_overlay;
+		close_overlay = true;
+	}
+	if (item_id) {
+		clearItem();
+	}
+	$popup.fadeOut('fast', function() {
+		if ($(this).data('removeOnClose')) {
+			$(this).remove();
+		}
+		if (typeof callback === 'function') {
+			callback();
+		}
+	});
+	if (close_overlay !== false) {
+		$('#popup-overlay').fadeOut('fast', function() {
+			$(this).remove();
+		});
+	}
+	popup_open = false;
+}
+
+
+function openPopupOverlay() {
 	if (!$('#popup-overlay').length) {
 		$('<div></div>').attr('id', 'popup-overlay')
 			.appendTo($('body'))
 			.on('click', function() {closePopup(remove_on_close); })
 			.fadeIn('fast');
 	}
-	
-	$popup.append($('<a class="close" href="#">Close</a>')).fadeIn('fast');
-	
-	$popup.find('.close').on('click', function(e) {e.preventDefault(); closePopup(); });
-}
-
-
-function closePopup(callback) {
-	$popup.fadeOut('fast', function() {
-		if ($(this).data('removeOnClose')) {
-			$(this).remove();
-		}
-		if (callback) {
-			callback();
-		}
-	});
-	$('#popup-overlay').fadeOut('fast', function() {$(this).remove(); });
 }
 

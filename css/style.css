@@ -344,9 +344,16 @@ header h2 .category-wrapper span {
 	width: 90%;
 	z-index: 11;
 }
+.popup-item {
+	width: auto;
+	max-width: 90%;
+}
+.popup-embed {
+	max-width: 1000px; 
+}
 .popup h2 {
 	font-size: 0.875em;
-	margin: 1.2em 0 0.8em;
+	margin: 1.2em 3em 0.8em 0;
 }
 .popup h2:first-child {
 	margin-top: 0;
@@ -355,10 +362,31 @@ header h2 .category-wrapper span {
 .popup ul {
 	font-size: 0.875em;
 }
+.popup #main-img {
+	display: block;
+	margin: 1.5em 0 2em;
+}
+.popup img {
+	max-width: 100%;
+	max-height: 100%;
+}
+.popup #main-embed {
+	margin: 1.5em 0 2em;
+	padding-top: 56.25%;
+	position: relative;
+	width: 100%;
+}
+.popup #main-embed iframe {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+}
 #popup-overlay {
-	background-color: rgb(0,0,0);
+	background-color: rgba(0,0,0,0.6);
 	display: none;
-	opacity: 0.5;
+/* 	opacity: 0.5; */
 	position: fixed;
 	top: 0;
 	bottom: 0;
@@ -587,5 +615,18 @@ a.tag-Miscellany .category-tooltip,
 a.tag-Miscellany .category-tooltip:before {
 	border-color: rgb(0,98,65);
 }
+
+
+
+/*
+.layer1 > * {
+	-webkit-transition: -webkit-filter 1s ease-out;
+}
+.defocussed > * {
+	filter: grayscale(1);
+	-webkit-filter: grayscale(1);
+	-moz-filter: grayscale(1);
+}
+*/
 
 

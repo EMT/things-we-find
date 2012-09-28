@@ -3,7 +3,12 @@
 
 
 
-list($user, $collection) = explode('/', $_GET['q']);
+if (isset($_GET['q'])) {
+	list($user, $collection) = explode('/', $_GET['q']);
+}
+else if (isset($_GET['asset'])) {
+	$asset_id = $_GET['asset'];
+}
 $page = (isset($_GET['p'])) ? $_GET['p'] : 1;
 $per_page = 15;
 $tag = (isset($_GET['tag'])) ? $_GET['tag'] : false;
@@ -13,7 +18,12 @@ if ($tag) {
 	$per_page = 50;
 }
 
-echo gimmeBar($user, $collection, $page, $per_page, $tag);
+if (isset($asset_id)) {
+	echo gimmeBarAsset($asset_id);
+}
+else {
+	echo gimmeBar($user, $collection, $page, $per_page, $tag);
+}
 
 
 function gimmeBar($user, $collection, $page, $per_page, $tag) {
@@ -36,6 +46,28 @@ function gimmeBar($user, $collection, $page, $per_page, $tag) {
 		$json = @file_get_contents($url);
 		$data = json_decode($json);
 		$cache->store($url, $data, 60*5);
+		$data->twf_cached = false;
+	}
+	else {
+		$data->twf_cached = true;
+	}
+	
+	return json_encode($data);
+}
+
+
+function gimmeBarAsset($asset_id) {
+
+	$url = 'https://gimmebar.com/api/v1/public/asset/' . $asset_id . '.json';
+
+	require_once('phpcache.php');
+	$cache = new reallysimple\PhpCache('cache');
+	$data = $cache->fetch($url);
+	
+	if (!$data) {
+		$json = @file_get_contents($url);
+		$data = json_decode($json);
+		$cache->store($url, $data);
 		$data->twf_cached = false;
 	}
 	else {

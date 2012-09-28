@@ -6,18 +6,45 @@
 <head>
 	<meta charset="utf-8">
 	
-	<?php
-	$tag = (isset($_GET['url'])) ? ucfirst($_GET['url']) : false;
+<?php
+	$tag = false;
+	$item_id = false;
+	$slug = (isset($_GET['url'])) ? $_GET['url'] : false;
+	if ($slug) {
+		$slug = explode('/', $slug);
+		if ($slug[0] !== 'item') {
+			$tag = ucfirst($slug[0]);
+		}
+		if ($slug[0] === 'item' && isset($slug[1])) {
+			$item_id = $slug[1];
+		}
+		else if (isset($slug[1]) && $slug[1] === 'item' && isset($slug[2])) {
+			$item_id = $slug[2];
+		}
+	}
+	
 	$tag_title = ($tag) ?: 'Everything';
 	$page_title = ($tag) ?: '';
 	$page_title .= ($tag) ? ' – ' : '';
 	$page_title .= 'Things We Find';
 	$host = $_SERVER['HTTP_HOST'];
 	$base_url = $host;
+	$base_slug = '';
 	if ($host === 'madebyfieldwork.co') {
 		$base_url .= '/lab/things-we-find';
+		$base_slug = '/lab/things-we-find';
 	}
-	$build = 13;
+	$build = 21;
+	
+	//	Access the API if the URL refers to an item
+	if ($item_id) {
+		$item = file_get_contents('http://' . $base_url . '/api.php?asset=' . $item_id);
+		$item_data = json_decode($item);
+		if ($item) {
+			$page_title = $item_data->title . ' – Things We Find';
+		}
+		//var_dump($item);
+	}
 ?>
 
 	<!--
@@ -28,15 +55,27 @@
 	<title><?php echo $page_title; ?></title>
 	
 	<?php if ($tag) { ?>
-		<link rel="canonical" href="http://<?php echo $base_url; ?>/<?php echo $tag; ?>" />
+<!-- 		<link rel="canonical" href="http://<?php echo $base_url; ?>/<?php echo $tag; ?>" /> -->
 	<?php } ?>
+	
+	<?php if ($item) { ?>
+		<?php if ($item_data->asset_type === 'image') { ?>
+			<meta property="og:image" content="<?php echo $item_data->content->resized_images->full; ?>"/>
+		<?php } else if ($item_data->asset_type === 'embed') { ?>
+			<meta property="og:image" content="<?php echo $item_data->content->thumbnail; ?>"/>
+		<?php } ?>
+		<meta property="og:title" content="<?php echo $item_data->title; ?> (via Things We Find)"/>
+	<?php } ?>
+	<meta property="og:site_name" content="Things We Find"/>
 
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="css/style.<?php echo $build; ?>.css">
-	<script src="js/modernizr.js"></script>
+	<link rel="stylesheet" href="<?php echo $base_slug; ?>/css/style.<?php echo $build; ?>.css">
+	<script src="<?php echo $base_slug; ?>/js/modernizr.js"></script>
 	<script type="text/javascript" src="//use.typekit.net/pja1bzr.js"></script>
 	<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 </head>
+
+
 <body class="tag-body-<?php echo $tag_title; ?>">
 	
 	
@@ -82,9 +121,10 @@
 			<p class="ie-note">Hey, this site isn't broken, your browser is. It looks like you’re using Internet Explorer, which is old, slow, insecure and full of bugs. Please try <a href="https://www.google.com/intl/en/chrome/browser/" target="_blank">Chrome</a>, <a href="http://www.apple.com/safari/" target="_blank">Safari</a> or <a href="http://www.mozilla.org/en-US/firefox/new/" target="_blank">Firefox</a> instead.</p>
 		<![endif]-->
 		
-		
-		<h1><a class="category-link" href="/">Things We Find</a></h1>
-		<h2 id="category-title"><span class="tag-<?php echo $tag_title; ?>"><?php echo $tag_title; ?></span></h2>
+		<div>
+			<h1><a class="category-link" href="/">Things We Find</a></h1>
+			<h2 id="category-title"><span class="tag-<?php echo $tag_title; ?>"><?php echo $tag_title; ?></span></h2>
+		</div>
 		
 	</header>
 	
@@ -117,7 +157,7 @@
 	
 	<script id="template-gimmebar-image" type="text/x-handlebars-template">
 		<li class="box">
-			<a href="{{source}}" target="_blank">
+			<a class="item-link" href="{{url}}" target="_blank">
 				<img src="{{thumb}}" alt="" />
 			</a>
 			{{#if tags.length}}
@@ -132,7 +172,7 @@
 	
 	<script id="template-gimmebar-embed" type="text/x-handlebars-template">
 		<li class="box">
-			<a href="{{source}}" target="_blank">
+			<a class="item-link" href="{{url}}" target="_blank">
 				<img src="{{thumb}}" alt="" />
 			</a>
 			{{#if tags.length}}
@@ -150,15 +190,37 @@
 	</script>
 	
 	
+	<script id="template-item-popup-image" type="text/x-handlebars-template">
+		<section class="popup popup-item">
+			<h2>{{title}}</h2>
+			<a id="main-img" href="{{source}}"><img src="{{content.resized_images.full}}" alt="{{title}}" /></a>
+			<p><a href="{{source}}" target="_blank">Original Source</a></p>
+		</section>
+	</script>
+	
+	<script id="template-item-popup-embed-iframe" type="text/x-handlebars-template">
+		<section class="popup popup-item popup-embed">
+			<h2>{{title}}</h2>
+			<div id="main-embed">
+				<iframe src="{{content.params.src}}" alt="{{title}}" />
+			</div>
+			<p><a href="{{source}}" target="_blank">Original Source</a></p>
+		</section>
+	</script>
+	
+	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-	<script>window.jQuery || document.write('<script src="js/jquery.js"><\/script>')</script>
-	<script src="js/jquery.masonry.min.js"></script>
-	<script src="js/handlebars.js"></script>
+	<script>window.jQuery || document.write('<script src="<?php echo $base_slug; ?>/js/jquery.js"><\/script>')</script>
+	<script src="<?php echo $base_slug; ?>/js/jquery.masonry.min.js"></script>
+	<script src="<?php echo $base_slug; ?>/js/handlebars.js"></script>
+	<script src="<?php echo $base_slug; ?>/js/spin.js"></script>
 	<script type="text/javascript">
 		start_tag = <?php echo ($tag) ? ("'" . $tag . "'") : 'false'; ?>;
+		start_item_id = <?php echo ($item_id) ? ("'" . $item_id . "'") : 'false'; ?>;
+		start_item = <?php echo ($item) ? ($item) : 'false'; ?>;
 		host = '<?php echo $host; ?>';
 	</script>
-	<script src="js/bootstrap.<?php echo $build; ?>.js"></script>
+	<script src="<?php echo $base_slug; ?>/js/bootstrap.<?php echo $build; ?>.js"></script>
 	
 	<?php if ($host !== 'madebyfieldwork.co') { ?>
 	<script type="text/javascript">
