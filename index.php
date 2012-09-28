@@ -34,7 +34,7 @@
 		$base_url .= '/lab/things-we-find';
 		$base_slug = '/lab/things-we-find';
 	}
-	$build = 21;
+	$build = 22;
 	
 	//	Access the API if the URL refers to an item
 	if ($item_id) {
