@@ -14,7 +14,7 @@ if ($host === 'madebyfieldwork.co') {
 	$base_url .= '/lab/things-we-find';
 	$base_slug = '/lab/things-we-find';
 }
-$build = 22;
+$build = 23;
 
 
 $tag = false;

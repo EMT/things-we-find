@@ -6,7 +6,8 @@
 		<link><?php echo $feed_url; ?></link>
 		<description>Created by Andy Gott & Loz Ives, Things We Find is an online repository for the visual loveliness that we find every day. Content is uploaded as and when we find it, and loosely categorised in one way or another.</description>
 		<language>English</language>
-		<?php foreach ($items->records as $item) { ?>
+		<?php foreach ($items->records as $item) { 
+			if (!$tag || in_array($tag, $item->tags)) { ?>
 			<item>
 				<title><?php echo $item->title; ?></title>
 				<link><?php echo $collection_url . '/' . $item->id; ?></link>
@@ -16,6 +17,7 @@
 					<description><![CDATA[<a href="<?php echo $collection_url . '/' . $item->id; ?>"><img alt="<?php echo $item->title; ?>" src="<?php echo $item_data->content->thumbnail; ?>" /></a>]]></description>
 				<?php } ?>
 			</item>
+			<?php } ?>
 		<?php } ?>
 	</channel>
 </rss>
