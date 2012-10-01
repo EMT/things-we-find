@@ -77,7 +77,7 @@
 		
 		<a class="about-link" href="/about">?</a>
 		
-		<!--[if lte IE 8]>
+		<!--[if lte IE 9]>
 			<p class="ie-note">Hey, this site isn't broken, your browser is. It looks like you’re using Internet Explorer, which is old, slow, insecure and full of bugs. Please try <a href="https://www.google.com/intl/en/chrome/browser/" target="_blank">Chrome</a>, <a href="http://www.apple.com/safari/" target="_blank">Safari</a> or <a href="http://www.mozilla.org/en-US/firefox/new/" target="_blank">Firefox</a> instead.</p>
 		<![endif]-->
 		
@@ -117,7 +117,7 @@
 	
 	<script id="template-gimmebar-image" type="text/x-handlebars-template">
 		<li class="box">
-			<a class="item-link" href="{{url}}" target="_blank">
+			<a class="item-link" href="{{url}}">
 				<img src="{{thumb}}" alt="" />
 			</a>
 			{{#if tags.length}}
@@ -132,7 +132,7 @@
 	
 	<script id="template-gimmebar-embed" type="text/x-handlebars-template">
 		<li class="box">
-			<a class="item-link" href="{{url}}" target="_blank">
+			<a class="item-link" href="{{url}}">
 				<img src="{{thumb}}" alt="" />
 			</a>
 			{{#if tags.length}}

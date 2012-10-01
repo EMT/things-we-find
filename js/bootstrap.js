@@ -102,13 +102,15 @@ $(function(){
 	
 	
 	$('body').on('click', 'a.item-link', function(e) {
-		e.preventDefault();
-		var url = $(this).attr('href');
-		if (popup_open) {
-			closePopup(false, function() {loadItemOnClick(url); });
-		}
-		else {
-			loadItemOnClick(url);
+		if (Modernizr.history) {
+			e.preventDefault();
+			var url = $(this).attr('href');
+			if (popup_open) {
+				closePopup(false, function() {loadItemOnClick(url); });
+			}
+			else {
+				loadItemOnClick(url);
+			}
 		}
 	});
 	
@@ -481,6 +483,11 @@ console.log(data);
 
 
 function clearItem(is_back) {
+
+	if (!Modernizr.history) {
+		window.location = url_base + ((tag) ? tag : '');
+		return;
+	}
 
 	item_id = false;
 	
