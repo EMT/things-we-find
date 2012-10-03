@@ -14,7 +14,7 @@ if ($host === 'madebyfieldwork.co') {
 	$base_url .= '/lab/things-we-find';
 	$base_slug = '/lab/things-we-find';
 }
-$build = 23;
+$build = 24;
 
 
 $tag = false;
@@ -30,7 +30,7 @@ if ($slug) {
 
 	$slug = explode('/', $slug);
 	
-	if ($slug[0] !== 'item') {
+	if ($slug[0] !== 'item' && $slug[0] !== 'feed.rss') {
 		$tag = ucfirst($slug[0]);
 	}
 	
