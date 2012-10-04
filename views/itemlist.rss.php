@@ -10,14 +10,14 @@
 		<?php foreach ($items->records as $item) { 
 			if (!$tag || in_array($tag, $item->tags)) { ?>
 			<item>
-				<guid><?php echo $collection_url . '/' . $item->id; ?></guid>
+				<guid><?php echo $collection_url . '/item/' . $item->id; ?></guid>
 				<title><?php echo $item->title; ?></title>
-				<link><?php echo $collection_url . '/' . $item->id; ?></link>
+				<link><?php echo $collection_url . '/item/' . $item->id; ?></link>
 				<pubDate><?php echo date(DATE_RFC2822, $item->date); ?></pubDate>
 				<?php if ($item->asset_type === 'image') { ?>
-					<description><![CDATA[<a href="<?php echo $collection_url . '/' . $item->id; ?>"><img alt="<?php echo $item->title; ?>" src="<?php echo $item->content->resized_images->full; ?>" /></a>]]></description>
+					<description><![CDATA[<a href="<?php echo $collection_url . '/item/' . $item->id; ?>"><img alt="<?php echo $item->title; ?>" src="<?php echo $item->content->resized_images->full; ?>" /></a>]]></description>
 				<?php } else if ($item->asset_type === 'embed') { ?>
-					<description><![CDATA[<a href="<?php echo $collection_url . '/' . $item->id; ?>"><img alt="<?php echo $item->title; ?>" src="<?php echo $item_data->content->thumbnail; ?>" /></a>]]></description>
+					<description><![CDATA[<a href="<?php echo $collection_url . '/item/' . $item->id; ?>"><img alt="<?php echo $item->title; ?>" src="<?php echo $item_data->content->thumbnail; ?>" /></a>]]></description>
 				<?php } ?>
 			</item>
 			<?php } ?>
