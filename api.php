@@ -45,6 +45,30 @@ function gimmeBar($user, $collection, $page, $per_page, $tag) {
 	if (!$data) {
 		$json = @file_get_contents($url);
 		$data = json_decode($json);
+		
+		//	Account for flash Vimeo embeds
+		$vimeo_url = 'http://vimeo.com/api/v2/video/';
+		foreach ($data->records as $item) {
+
+			if ($item->asset_type === 'embed' 
+			&& !$item->content->params 
+			&& $item->content->attributes 
+			&& $item->content->attributes->src)  {
+				$purl = parse_url($item->content->attributes->src);
+				if ($purl['query']) {
+					parse_str($purl['query'], $q);
+					if ($q['clip_id']) {
+						$clip_data = @file_get_contents($vimeo_url . $q['clip_id'] . '.json');
+						if ($clip_data) {
+							$clip_data = json_decode($clip_data);
+							$item->content->params->src = 'http://player.vimeo.com/video/' . $q['clip_id'];
+							$item->content->thumbnail = $clip_data[0]->thumbnail_large;
+						}
+					}
+				}
+			}
+		}
+		
 		$cache->store($url, $data, 60*5);
 		$data->twf_cached = false;
 	}
@@ -67,6 +91,27 @@ function gimmeBarAsset($asset_id) {
 	if (!$data) {
 		$json = @file_get_contents($url);
 		$data = json_decode($json);
+		
+		//	Account for flash Vimeo embeds
+		$vimeo_url = 'http://vimeo.com/api/v2/video/';
+		if ($data->asset_type === 'embed' 
+		&& !$data->content->params 
+		&& $data->content->attributes 
+		&& $data->content->attributes->src)  {
+			$purl = parse_url($data->content->attributes->src);
+			if ($purl['query']) {
+				parse_str($purl['query'], $q);
+				if ($q['clip_id']) {
+					$clip_data = @file_get_contents($vimeo_url . $q['clip_id'] . '.json');
+					if ($clip_data) {
+						$clip_data = json_decode($clip_data);
+						$data->content->params->src = 'http://player.vimeo.com/video/' . $q['clip_id'];
+						$data->content->thumbnail = $clip_data[0]->thumbnail_large;
+					}
+				}
+			}
+		}
+		
 		$cache->store($url, $data);
 		$data->twf_cached = false;
 	}
