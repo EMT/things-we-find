@@ -348,6 +348,10 @@ function generateItemsHtml(items) {
 					source: item.source,
 					tags: (item.tags || [tag] || false)
 				}
+				var t = context.thumb.split('/').pop();
+				if (t.indexOf('.') === -1) {
+					context.thumb = item.content.resized_images.full;
+				}
 				break;
 				
 			case 'embed':
