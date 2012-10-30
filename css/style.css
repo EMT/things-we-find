@@ -62,7 +62,9 @@ src:url("Fonts/1c2346f9-683b-4713-9b96-c38e48777504.eot?iefix") format("eot");}
 @font-face{
 font-family:"Prestige Elite W01 Bold";
 src:url("../fonts/1c2346f9-683b-4713-9b96-c38e48777504.eot?iefix");
-src:url("../fonts/9345a0f5-95de-43c0-bd16-4197b9214b2e.woff") format("woff"),url("../fonts/2939886e-0f3b-4d1c-9821-2dd037f26246.ttf") format("truetype"),url("../fonts/3f0170c3-6d1c-455e-b968-8aa2c7d17e76.svg#3f0170c3-6d1c-455e-b968-8aa2c7d17e76") format("svg");
+src:url("../fonts/3f0170c3-6d1c-455e-b968-8aa2c7d17e76.svg#3f0170c3-6d1c-455e-b968-8aa2c7d17e76") format("svg"),
+	url("../fonts/9345a0f5-95de-43c0-bd16-4197b9214b2e.woff") format("woff"),
+	url("../fonts/2939886e-0f3b-4d1c-9821-2dd037f26246.ttf") format("truetype");
 }
 
 

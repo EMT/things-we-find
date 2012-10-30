@@ -110,7 +110,7 @@
 			<li><a href="https://twitter.com/smartemma" target="_blank">Emma Smart</a></li>
 			<li><a href="https://twitter.com/RSWorks" target="_blank">Andy Gott</a></li>
 		</ul>
-<!-- 		<p class="made-by-fieldwork">Designed &amp; Built by <a href="http://madebyfieldwork.co">Fieldwork</a></p> -->
+		<p class="made-by-fieldwork">Designed &amp; Built by <a href="http://madebyfieldwork.co">Fieldwork</a></p>
 	</section>
 	
 	
